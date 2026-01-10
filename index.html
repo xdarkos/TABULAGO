@@ -8226,7 +8226,7 @@ const CONFIG = {
   AUTOSAVE_MS: 10000,
   CLEANUP_MS: 60000,
   SAVE_TTL_HOURS: 24,
-  TURN_SECONDS_DEFAULT: 2,
+  TURN_SECONDS_DEFAULT: 60,
   MAX_TEAMS: 4,
   MIN_TEAMS: 2,
   MAX_ROUNDS: 3,
@@ -10219,6 +10219,34 @@ const TieManager = {
     });
     return groups;
   },
+  
+  checkAndHandleTiesAfterPlayoff() {
+  PlayerStatsManager.recomputeTeamScoresFromPlayerStats();
+  const gameState = StorageManager.gameState;
+
+  const playoffTeams = gameState.tie.tieTeams || [];
+
+  const scoreGroups = {};
+  playoffTeams.forEach(team => {
+    const s = team.score || 0;
+    if (!scoreGroups[s]) scoreGroups[s] = [];
+    scoreGroups[s].push(team);
+  });
+
+  const stillTiedGroups = Object.values(scoreGroups).filter(g => g.length > 1);
+
+  if (stillTiedGroups.length === 0) {
+    return false;
+  }
+
+  gameState.tie.tieTeams = stillTiedGroups.flat();
+  gameState.tie.phase = 'pending';
+
+  this.showTieScreen();
+  StorageManager.saveGameStateThrottled(true);
+  return true;
+},
+
 
   // ✅ SENİN İSTEDİĞİN: eşit olan hangi skor grubuysa o grup(lar) uzatmaya gider
   checkAndHandleTiesAtEnd() {
@@ -10361,34 +10389,40 @@ const TieManager = {
   },
 
   // ✅ Uzatmayı başlat
-  continueTieGame() {
-    const gameState = StorageManager.gameState;
-    const tiedTeamIds = new Set((gameState.tie.tieTeams || []).map(t => t.id));
+continueTieGame() {
+  const gameState = StorageManager.gameState;
+  const tiedTeamIds = new Set((gameState.tie.tieTeams || []).map(t => t.id));
 
-    const ordered = (gameState.teamOrder?.length ? gameState.teamOrder : gameState.teams)
-      .filter(t => tiedTeamIds.has(t.id))
-      .map(t => ({ ...t }));
+  // ❗ teamOrder DEĞİŞMEZ
+  // Uzatma oynayacak takımlar ayrı tutulur
+  gameState.tie.playoffTeamIds = [...tiedTeamIds];
 
-    gameState.teamOrder = ordered;
+  gameState.tie.phase = 'playing';
+  gameState.tie.tieRoundsCompleted = (gameState.tie.tieRoundsCompleted || 0) + 1;
 
-    gameState.tie.phase = 'playing';
-    gameState.tie.tieRoundsCompleted = (gameState.tie.tieRoundsCompleted || 0) + 1;
+  // ✅ SADECE eşit takımlar için tur oluştur
+  const playoffTeams = gameState.teamOrder.filter(t =>
+    gameState.tie.playoffTeamIds.includes(t.id)
+  );
 
-    gameState.turnSchedule = TurnManager.buildTurnSchedule(gameState.teamOrder, gameState.tie.maxTieRounds || 1);
-    gameState.currentTurnIndex = 0;
+  gameState.turnSchedule = TurnManager.buildTurnSchedule(
+    playoffTeams,
+    gameState.tie.maxTieRounds || 1
+  );
+  gameState.currentTurnIndex = 0;
 
-    GameTimer.stopTimer();
-    if (gameState.timer) {
-      gameState.timer.remainingSec = gameState.timer.durationSec;
-      gameState.timer.running = false;
-      gameState.timer.paused = false;
-      gameState.timer.endTimeMs = null;
-      gameState.timer.originalEndTimeMs = null;
-    }
+  GameTimer.stopTimer();
+  if (gameState.timer) {
+    gameState.timer.remainingSec = gameState.timer.durationSec;
+    gameState.timer.running = false;
+    gameState.timer.paused = false;
+    gameState.timer.endTimeMs = null;
+    gameState.timer.originalEndTimeMs = null;
+  }
 
-    StorageManager.saveGameStateThrottled(true);
-    TeamTurnScreenManager.showTeamTurnScreen();
-  },
+  StorageManager.saveGameStateThrottled(true);
+  TeamTurnScreenManager.showTeamTurnScreen();
+},
 
   computeFinalRankingWithTie() {
     const gameState = StorageManager.gameState;
@@ -10609,23 +10643,27 @@ const GameManager = {
   },
 
   // ✅ KRİTİK: uzatma bittiğinde tekrar tie kontrolüne girme
-  endGameFlow() {
-    PlayerStatsManager.recomputeTeamScoresFromPlayerStats();
-    const gameState = StorageManager.gameState;
+endGameFlow() {
+  PlayerStatsManager.recomputeTeamScoresFromPlayerStats();
+  const gameState = StorageManager.gameState;
 
-    // Uzatma bitti -> direkt final
-    if (gameState.tie?.phase === 'playing') {
-      gameState.tie.phase = 'resolved';
-      StorageManager.saveGameStateThrottled(true);
-      this.finalizeGameWithRanking();
-      return;
-    }
+  // 🔁 Uzatma oynandıysa tekrar eşitlik kontrolü
+  if (gameState.tie?.phase === 'playing') {
 
-    // Normal oyun bitti -> tie kontrol
-    if (TieManager.checkAndHandleTiesAtEnd()) return;
+    const hasNewTie = TieManager.checkAndHandleTiesAfterPlayoff();
+    if (hasNewTie) return;
 
+    gameState.tie.phase = 'resolved';
+    StorageManager.saveGameStateThrottled(true);
     this.finalizeGameWithRanking();
-  },
+    return;
+  }
+
+  // Normal oyun bitti → ilk eşitlik kontrolü
+  if (TieManager.checkAndHandleTiesAtEnd()) return;
+
+  this.finalizeGameWithRanking();
+},
 
   finalizeGameWithRanking() {
     ScreenManager.clearAllIntervals();
@@ -11673,3 +11711,4 @@ window.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
+
