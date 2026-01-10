@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
@@ -2683,6 +2683,1097 @@ header .subtitle {
     margin: 25px 0;
     font-size: 1.1rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================================
+   EŞİTLİK BAŞLIK GÖRSELİ – DAHA AŞAĞIDA (NİHAİ)
+   ========================================================= */
+
+.tie-title-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 20px;
+    height: 200px;
+    overflow: visible;
+}
+
+/* =======================
+   MASAÜSTÜ
+   ======================= */
+
+.tie-title-img img {
+    width: 420px;
+    height: auto;
+
+    /* ❗ biraz daha aşağı */
+    transform: scale(1.35) translateY(26px);
+    transform-origin: center;
+
+    will-change: transform;
+    pointer-events: none;
+}
+
+/* =======================
+   TABLET
+   ======================= */
+
+@media (max-width: 768px) {
+    .tie-title-img {
+        height: 180px;
+    }
+
+    .tie-title-img img {
+        width: 360px;
+        transform: scale(1.3) translateY(22px);
+    }
+}
+
+/* =======================
+   MOBİL
+   ======================= */
+
+@media (max-width: 600px) {
+    .tie-title-img {
+        height: 165px;
+    }
+
+    .tie-title-img img {
+        width: 320px;
+        transform: scale(1.25) translateY(20px);
+    }
+}
+
+/* =======================
+   KÜÇÜK TELEFONLAR
+   ======================= */
+
+@media (max-width: 390px) {
+    .tie-title-img {
+        height: 150px;
+    }
+
+    .tie-title-img img {
+        width: 290px;
+        transform: scale(1.2) translateY(18px);
+    }
+}
+
+/* =========================================================
+   GÖRSELLİ BUTON – OYUNA DEVAM (BÜYÜK & MERKEZLİ)
+   ========================================================= */
+
+.image-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    margin-top: 16px;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+}
+
+/* 🔑 ASIL GÖRSEL */
+.image-btn img {
+    display: block;
+    margin: 0 auto;
+
+    width: 320px;          /* 🔥 MASAÜSTÜ DAHA BÜYÜK */
+    max-width: 90vw;       /* ❗ taşma koruması */
+    height: auto;
+
+    cursor: pointer;
+
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+/* Hover (sadece masaüstü) */
+.image-btn:hover img {
+    transform: scale(1.06);
+    filter: drop-shadow(0 10px 25px rgba(0,0,0,0.35));
+}
+
+/* Active */
+.image-btn:active img {
+    transform: scale(0.97);
+}
+
+/* =======================
+   TABLET
+   ======================= */
+@media (max-width: 768px) {
+    .image-btn img {
+        width: 300px;
+    }
+}
+
+/* =======================
+   MOBİL
+   ======================= */
+@media (max-width: 600px) {
+    .image-btn img {
+        width: 280px;   /* 🔥 mobilde belirgin büyüklük */
+    }
+}
+
+/* =======================
+   KÜÇÜK TELEFONLAR
+   ======================= */
+@media (max-width: 390px) {
+    .image-btn img {
+        width: 260px;
+    }
+}
+
+/* Dokunmatik cihazlarda hover iptali */
+@media (hover: none) {
+    .image-btn:hover img {
+        transform: none;
+        filter: none;
+    }
+}
+
+/* =========================================================
+   EŞİTLİK EKRANI - GELİŞMİŞ MODERN TASARIM
+   ========================================================= */
+
+.tie-info-container {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.tie-explanation-card {
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.14), 
+        rgba(255, 255, 255, 0.06)
+    );
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+        0 0 40px rgba(106, 17, 203, 0.15);
+    position: relative;
+    overflow: hidden;
+    animation: tieCardEntrance 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tie-explanation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+        0 0 50px rgba(106, 17, 203, 0.2);
+}
+
+.tie-explanation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, 
+        var(--team1), 
+        var(--team2), 
+        var(--team3), 
+        var(--team4)
+    );
+    border-radius: 24px 24px 0 0;
+    z-index: 2;
+}
+
+.tie-explanation-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 154, 60, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 20%, rgba(0, 180, 219, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(155, 89, 182, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(46, 204, 113, 0.1) 0%, transparent 50%);
+    animation: rotateSlow 25s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes tieCardEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+    }
+    70% {
+        opacity: 1;
+        transform: translateY(-5px) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes rotateSlow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.tie-intro-text {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.98);
+    margin-bottom: 32px;
+    text-align: center;
+    font-weight: 500;
+    position: relative;
+    z-index: 3;
+    padding: 0 10px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tie-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 3;
+}
+
+.tie-detail-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+}
+
+.tie-detail-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(255, 255, 255, 0.1) inset;
+}
+
+.tie-detail-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(to bottom, 
+        rgba(255, 154, 60, 0.8), 
+        rgba(255, 183, 3, 0.8)
+    );
+    z-index: 2;
+}
+
+.tie-detail-card:nth-child(1)::before {
+    background: linear-gradient(to bottom, var(--team1), #ffb347);
+}
+
+.tie-detail-card:nth-child(2)::before {
+    background: linear-gradient(to bottom, var(--team2), #00c6ff);
+}
+
+.tie-detail-card:nth-child(3)::before {
+    background: linear-gradient(to bottom, var(--team3), #c471ed);
+}
+
+.tie-detail-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.05) 0%, 
+        rgba(255, 255, 255, 0) 100%
+    );
+    z-index: 1;
+}
+
+.tie-detail-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 3;
+}
+
+.tie-detail-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 1.4rem;
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tie-detail-card:hover .tie-detail-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 
+        0 12px 25px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+}
+
+.tie-detail-card:nth-child(1) .tie-detail-icon {
+    background: linear-gradient(135deg, 
+        rgba(255, 154, 60, 0.9), 
+        rgba(255, 107, 107, 0.8)
+    );
+    color: #fff;
+}
+
+.tie-detail-card:nth-child(2) .tie-detail-icon {
+    background: linear-gradient(135deg, 
+        rgba(0, 180, 219, 0.9), 
+        rgba(155, 89, 182, 0.8)
+    );
+    color: #fff;
+}
+
+.tie-detail-card:nth-child(3) .tie-detail-icon {
+    background: linear-gradient(135deg, 
+        rgba(46, 204, 113, 0.9), 
+        rgba(39, 174, 96, 0.8)
+    );
+    color: #fff;
+}
+
+.tie-detail-icon i {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.tie-detail-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.3px;
+}
+
+.tie-detail-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    position: relative;
+    z-index: 3;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tie-note {
+    background: linear-gradient(135deg, 
+        rgba(255, 183, 3, 0.15), 
+        rgba(255, 149, 0, 0.1)
+    );
+    border-radius: 20px;
+    padding: 28px;
+    border: 2px dashed rgba(255, 183, 3, 0.4);
+    text-align: center;
+    position: relative;
+    z-index: 3;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    animation: noteGlow 3s ease-in-out infinite alternate;
+    overflow: hidden;
+}
+
+@keyframes noteGlow {
+    0% {
+        box-shadow: 
+            0 10px 30px rgba(255, 183, 3, 0.15),
+            0 0 0 1px rgba(255, 183, 3, 0.2) inset;
+    }
+    100% {
+        box-shadow: 
+            0 15px 40px rgba(255, 183, 3, 0.25),
+            0 0 0 1px rgba(255, 183, 3, 0.3) inset;
+    }
+}
+
+.tie-note::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, 
+        rgba(255, 183, 3, 0.1) 0%, 
+        transparent 70%
+    );
+    animation: rotateSlow 20s linear infinite;
+    pointer-events: none;
+}
+
+.tie-note-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 4;
+}
+
+.tie-note-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, 
+        rgba(255, 183, 3, 0.9), 
+        rgba(255, 149, 0, 0.9)
+    );
+    color: #fff;
+    font-size: 1.1rem;
+    box-shadow: 
+        0 6px 18px rgba(255, 183, 3, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.tie-note-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #ffb703;
+    margin: 0;
+    text-shadow: 
+        0 2px 8px rgba(255, 183, 3, 0.4),
+        0 0 20px rgba(255, 183, 3, 0.3);
+    letter-spacing: 0.5px;
+}
+
+.tie-note-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    position: relative;
+    z-index: 4;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tie-note-text strong {
+    color: #ffb703;
+    font-weight: 800;
+    text-shadow: 0 2px 8px rgba(255, 183, 3, 0.4);
+}
+
+/* Takım Skor Kartları - Geliştirilmiş */
+.tie-teams {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 30px 0 40px;
+    width: 100%;
+}
+
+.tie-team {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.tie-team:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.tie-team::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, 
+        var(--team1), 
+        var(--team2), 
+        var(--team3), 
+        var(--team4)
+    );
+    opacity: 0.6;
+}
+
+.tie-team-name {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tie-team-score {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffb703;
+    margin: 15px 0;
+    text-shadow: 
+        0 4px 12px rgba(255, 183, 3, 0.4),
+        0 0 30px rgba(255, 183, 3, 0.3);
+    animation: scorePulse 2s ease-in-out infinite;
+}
+
+@keyframes scorePulse {
+    0%, 100% {
+        transform: scale(1);
+        text-shadow: 
+            0 4px 12px rgba(255, 183, 3, 0.4),
+            0 0 30px rgba(255, 183, 3, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        text-shadow: 
+            0 6px 18px rgba(255, 183, 3, 0.5),
+            0 0 40px rgba(255, 183, 3, 0.4);
+    }
+}
+
+/* =========================================================
+   MOBİL UYUMLULUK - GELİŞMİŞ
+   ========================================================= */
+
+@media (max-width: 1200px) {
+    .tie-info-container {
+        max-width: 900px;
+    }
+    
+    .tie-details-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .tie-info-container {
+        padding: 0 15px;
+    }
+    
+    .tie-explanation-card {
+        padding: 28px;
+        border-radius: 22px;
+    }
+    
+    .tie-details-grid {
+        gap: 20px;
+    }
+    
+    .tie-detail-card {
+        padding: 24px;
+    }
+    
+    .tie-team {
+        padding: 22px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tie-info-container {
+        margin-bottom: 30px;
+    }
+    
+    .tie-explanation-card {
+        padding: 24px;
+        border-radius: 20px;
+        margin: 0 5px;
+    }
+    
+    .tie-intro-text {
+        font-size: 1.1rem;
+        margin-bottom: 28px;
+        padding: 0 5px;
+    }
+    
+    .tie-details-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+    
+    .tie-detail-card {
+        padding: 22px;
+        border-radius: 18px;
+    }
+    
+    .tie-detail-card-header {
+        gap: 14px;
+        margin-bottom: 18px;
+    }
+    
+    .tie-detail-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.3rem;
+        border-radius: 14px;
+    }
+    
+    .tie-detail-title {
+        font-size: 1.2rem;
+    }
+    
+    .tie-detail-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .tie-teams {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+        margin: 25px 0 35px;
+    }
+    
+    .tie-team {
+        padding: 20px;
+        border-radius: 18px;
+    }
+    
+    .tie-team-name {
+        font-size: 1.2rem;
+    }
+    
+    .tie-team-score {
+        font-size: 2.5rem;
+        margin: 12px 0;
+    }
+    
+    .tie-note {
+        padding: 24px;
+        border-radius: 18px;
+    }
+    
+    .tie-note-header {
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+    
+    .tie-note-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        border-radius: 12px;
+    }
+    
+    .tie-note-title {
+        font-size: 1.15rem;
+    }
+    
+    .tie-note-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+}
+
+@media (max-width: 576px) {
+    .tie-info-container {
+        padding: 0 12px;
+    }
+    
+    .tie-explanation-card {
+        padding: 20px;
+        border-radius: 18px;
+    }
+    
+    .tie-intro-text {
+        font-size: 1.05rem;
+        margin-bottom: 24px;
+        line-height: 1.6;
+    }
+    
+    .tie-detail-card {
+        padding: 20px;
+        border-radius: 16px;
+    }
+    
+    .tie-detail-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+    
+    .tie-detail-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+        border-radius: 12px;
+    }
+    
+    .tie-detail-title {
+        font-size: 1.15rem;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .tie-detail-text {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        text-align: center;
+    }
+    
+    .tie-teams {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin: 20px 0 30px;
+    }
+    
+    .tie-team {
+        padding: 18px;
+        border-radius: 16px;
+    }
+    
+    .tie-team:hover {
+        transform: translateY(-5px);
+    }
+    
+    .tie-team-name {
+        font-size: 1.15rem;
+    }
+    
+    .tie-team-score {
+        font-size: 2.2rem;
+        margin: 10px 0;
+    }
+    
+    .tie-note {
+        padding: 20px;
+        border-radius: 16px;
+    }
+    
+    .tie-note-header {
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    
+    .tie-note-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+        border-radius: 10px;
+    }
+    
+    .tie-note-title {
+        font-size: 1.1rem;
+    }
+    
+    .tie-note-text {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 400px) {
+    .tie-info-container {
+        padding: 0 10px;
+    }
+    
+    .tie-explanation-card {
+        padding: 18px;
+        border-radius: 16px;
+    }
+    
+    .tie-intro-text {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .tie-detail-card {
+        padding: 18px;
+    }
+    
+    .tie-detail-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .tie-detail-title {
+        font-size: 1.1rem;
+    }
+    
+    .tie-detail-text {
+        font-size: 0.85rem;
+    }
+    
+    .tie-team {
+        padding: 16px;
+    }
+    
+    .tie-team-name {
+        font-size: 1.1rem;
+    }
+    
+    .tie-team-score {
+        font-size: 2rem;
+    }
+    
+    .tie-note {
+        padding: 18px;
+    }
+}
+
+/* Yatay Mod için Optimizasyon */
+@media (max-height: 500px) and (orientation: landscape) {
+    .tie-info-container {
+        padding: 0 15px;
+        margin-bottom: 20px;
+    }
+    
+    .tie-explanation-card {
+        padding: 20px;
+        margin: 10px 0;
+    }
+    
+    .tie-intro-text {
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+    }
+    
+    .tie-details-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .tie-detail-card {
+        padding: 15px;
+    }
+    
+    .tie-detail-card-header {
+        flex-direction: row;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+    
+    .tie-detail-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    .tie-detail-title {
+        font-size: 0.9rem;
+        text-align: left;
+    }
+    
+    .tie-detail-text {
+        font-size: 0.8rem;
+        text-align: left;
+    }
+    
+    .tie-teams {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 15px 0;
+    }
+    
+    .tie-team {
+        padding: 12px;
+    }
+    
+    .tie-team-name {
+        font-size: 0.9rem;
+    }
+    
+    .tie-team-score {
+        font-size: 1.5rem;
+        margin: 8px 0;
+    }
+    
+    .tie-note {
+        padding: 15px;
+        margin-top: 15px;
+    }
+}
+
+/* Touch Cihazlar için Optimizasyon */
+@media (hover: none) and (pointer: coarse) {
+    .tie-detail-card:hover {
+        transform: none;
+    }
+    
+    .tie-team:hover {
+        transform: none;
+    }
+    
+    .tie-explanation-card:hover {
+        transform: none;
+    }
+    
+    .tie-detail-card:active {
+        transform: scale(0.98);
+        background: rgba(255, 255, 255, 0.12);
+    }
+    
+    .tie-team:active {
+        transform: scale(0.98);
+        background: rgba(255, 255, 255, 0.12);
+    }
+}
+
+/* Yüksek Çözünürlük Ekranlar için */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .tie-explanation-card {
+        border-width: 0.5px;
+    }
+    
+    .tie-detail-card {
+        border-width: 0.5px;
+    }
+    
+    .tie-team {
+        border-width: 0.5px;
+    }
+    
+    .tie-note {
+        border-width: 1px;
+    }
+}
+
+/* Koyu Tema için Optimizasyon */
+@media (prefers-color-scheme: dark) {
+    .tie-explanation-card {
+        background: linear-gradient(145deg, 
+            rgba(30, 30, 40, 0.9), 
+            rgba(20, 20, 30, 0.8)
+        );
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .tie-detail-card {
+        background: rgba(40, 40, 50, 0.8);
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+    
+    .tie-detail-card:hover {
+        background: rgba(50, 50, 60, 0.9);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .tie-team {
+        background: rgba(40, 40, 50, 0.8);
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+    
+    .tie-team:hover {
+        background: rgba(50, 50, 60, 0.9);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .tie-note {
+        background: linear-gradient(135deg, 
+            rgba(255, 183, 3, 0.12), 
+            rgba(255, 149, 0, 0.08)
+        );
+        border-color: rgba(255, 183, 3, 0.3);
+    }
+}
+
+/* Animasyon Performansı */
+@media (prefers-reduced-motion: reduce) {
+    .tie-explanation-card,
+    .tie-detail-card,
+    .tie-team,
+    .tie-note {
+        animation: none;
+        transition: none;
+    }
+    
+    .tie-explanation-card::after,
+    .tie-note::before {
+        animation: none;
+    }
+    
+    .tie-note-icon {
+        animation: none;
+    }
+    
+    .tie-team-score {
+        animation: none;
+    }
+    
+    .tie-detail-card:hover .tie-detail-icon {
+        transform: none;
+    }
+}
+
+/* iOS Safari için Optimizasyon */
+@supports (-webkit-touch-callout: none) {
+    .tie-explanation-card {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+    
+    .tie-detail-card {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .tie-team {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .tie-note {
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
 }
 
 /* =========================================================
@@ -6846,20 +7937,30 @@ body.modal-open {
         </div>
         
         <!-- 10. EŞİTLİK EKRANI -->
-        <div class="screen" id="tieScreen">
-            <div class="tie-screen">
-                <h2 class="tie-title">Eşitlik Var!</h2>
-                <div class="tie-info-box">
-                    <p>Normal turlar tamamlandı, ancak bazı takımlar eşit puanda!</p>
-                    <p>Eşit puana sahip takımlar 1 tur daha oynayacak.</p>
-                </div>
-                <div class="tie-teams" id="tieTeams"></div>
-                <div class="tie-explanation" id="tieExplanation"></div>
-                <button class="btn" id="continueTieBtn">
-                    <i class="fas fa-play"></i> Oyuna Devam Et
-                </button>
-            </div>
+<div class="screen" id="tieScreen">
+    <div class="tie-screen">
+
+        <!-- BAŞLIK GÖRSEL -->
+        <div class="tie-title-img">
+            <img src="esitlik-var.png" alt="Eşitlik Var">
         </div>
+
+        <div class="tie-info-box">
+            <p>Normal turlar tamamlandı, ancak bazı takımlar eşit puanda!</p>
+            <p>Eşit puana sahip takımlar 1 tur daha oynayacak.</p>
+        </div>
+
+        <div class="tie-teams" id="tieTeams"></div>
+<div class="tie-info-container" id="tieExplanation"></div>
+
+
+<button class="btn image-btn" id="continueTieBtn">
+    <img src="devamet.png" alt="Oyuna Devam Et">
+</button>
+
+    </div>
+</div>
+
         
         <!-- 11. KAZANAN EKRANI -->
         <div class="screen" id="winnerScreen">
@@ -7125,7 +8226,7 @@ const CONFIG = {
   AUTOSAVE_MS: 10000,
   CLEANUP_MS: 60000,
   SAVE_TTL_HOURS: 24,
-  TURN_SECONDS_DEFAULT: 60,
+  TURN_SECONDS_DEFAULT: 2,
   MAX_TEAMS: 4,
   MIN_TEAMS: 2,
   MAX_ROUNDS: 3,
@@ -8360,10 +9461,17 @@ const DiceManager = {
 
       gameState.diceParticipants = stillTied.map(t => t.id);
 
-      if (DOM.rollDiceBtn) {
-        DOM.rollDiceBtn.disabled = false;
-        DOM.rollDiceBtn.innerHTML = '<i class="fas fa-dice"></i> Eşit Takımlar Tekrar Zar Atsın';
-      }
+if (DOM.rollDiceBtn) {
+  DOM.rollDiceBtn.disabled = false;
+  DOM.rollDiceBtn.innerHTML = `
+    <img 
+      src="zartekrar.png" 
+      alt="Eşit Takımlar Tekrar Zar Atsın" 
+      class="dice-btn-img"
+    >
+  `;
+}
+
       return;
     }
 
@@ -9181,19 +10289,75 @@ const TieManager = {
       DOM.tieTeamsContainer.appendChild(el);
     });
 
-    let explanationText = `<p>Normal turlar tamamlandı! Eşit puanlar bulundu:</p>`;
-    allTiedGroups.forEach(group => {
-      const score = group[0].score || 0;
-      const names = group.map(t => t.name).join(', ');
-      explanationText += `<p><strong>${names}</strong> takımları ${score} puanla eşit.</p>`;
-    });
-
-    explanationText += `
-      <p><strong>Sadece eşit puana sahip takımlar</strong> 1 tur uzatma oynayacak.</p>
-      <p>Eşit olmayan takımların sıralaması korunur.</p>
+    // YENİ MODERN TASARIM
+    const explanationHTML = `
+        <div class="tie-explanation-card">
+            <p class="tie-intro-text">
+                Normal turlar tamamlandı! Bazı takımlar eşit puana ulaştı.
+                İşte oyunun son durumu ve nasıl devam edeceğimiz:
+            </p>
+            
+            <div class="tie-details-grid">
+                <div class="tie-detail-card">
+                    <div class="tie-detail-card-header">
+                        <div class="tie-detail-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4 class="tie-detail-title">Eşitlik Durumu</h4>
+                    </div>
+                    <p class="tie-detail-text">
+                        ${allTiedGroups.map(group => {
+                            const score = group[0].score || 0;
+                            const names = group.map(t => `<strong>${t.name}</strong>`).join(', ');
+                            return `<span style="display:block;margin-bottom:8px;">${names} takımları <strong>${score} puan</strong> ile eşit.</span>`;
+                        }).join('')}
+                    </p>
+                </div>
+                
+                <div class="tie-detail-card">
+                    <div class="tie-detail-card-header">
+                        <div class="tie-detail-icon">
+                            <i class="fas fa-forward"></i>
+                        </div>
+                        <h4 class="tie-detail-title">Uzatma Süreci</h4>
+                    </div>
+                    <p class="tie-detail-text">
+                        <strong>Sadece eşit puana sahip takımlar</strong> 1 tur uzatma oynayacak.
+                        Her takım <strong>60 saniye</strong> süre ile kelime anlatacak.
+                        Normal kurallar aynen geçerli olacak.
+                    </p>
+                </div>
+                
+                <div class="tie-detail-card">
+                    <div class="tie-detail-card-header">
+                        <div class="tie-detail-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h4 class="tie-detail-title">Sıralama Koruma</h4>
+                    </div>
+                    <p class="tie-detail-text">
+                        Eşit olmayan takımların sıralaması korunur. Uzatma sadece eşit takımlar
+                        arasında oynanır. Diğer takımların mevcut puanları ve sıralamaları değişmez.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="tie-note">
+                <div class="tie-note-header">
+                    <div class="tie-note-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h4 class="tie-note-title">Önemli Not</h4>
+                </div>
+                <p class="tie-note-text">
+                    Uzatma turu sonunda <strong>yine eşitlik olursa</strong>, eşit takımlar
+                    arasında <strong>tekrar uzatma turu</strong> oynanacaktır.
+                </p>
+            </div>
+        </div>
     `;
 
-    DOM.tieExplanationContainer.innerHTML = explanationText;
+    DOM.tieExplanationContainer.innerHTML = explanationHTML;
   },
 
   // ✅ Uzatmayı başlat
