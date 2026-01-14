@@ -10745,6 +10745,7 @@ const GameScreenManager = {
 // ==========================================
 
 const WordManager = {
+
   getWordPoolSafe() {
     if (Array.isArray(window.wordPool)) return window.wordPool;
     try {
@@ -10753,22 +10754,49 @@ const WordManager = {
     return null;
   },
 
+  // ✅ MUTLAKA BURADA – nextCard DIŞINDA
+  normalizeForbidden(forbidden) {
+    if (!Array.isArray(forbidden)) return null;
+    if (forbidden.length < 4) return null;
+    return forbidden.slice(0, 4);
+  },
+  // ✅ KELİME SAYISI HESAPLAMA
+getWordLength(mainWord) {
+  if (typeof mainWord !== 'string') return 0;
+  return mainWord.trim().split(/\s+/).length;
+},
+
   nextCard() {
     const pool = this.getWordPoolSafe();
-    if (!Array.isArray(pool) || pool.length === 0) { this.showFallbackCard(); return; }
+    if (!Array.isArray(pool) || pool.length === 0) {
+      this.showFallbackCard();
+      return;
+    }
 
     const gameState = StorageManager.gameState;
     if (!Array.isArray(gameState.sessionUsedWords)) gameState.sessionUsedWords = [];
     if (!Array.isArray(gameState.usedWords)) gameState.usedWords = [];
 
-    if (gameState.sessionUsedWords.length >= pool.length) gameState.sessionUsedWords = [];
+    if (gameState.sessionUsedWords.length >= pool.length) {
+      gameState.sessionUsedWords = [];
+    }
 
-    const available = pool.filter(w =>
-      w && typeof w.main === 'string' &&
-      Array.isArray(w.forbidden) && w.forbidden.length >= 4 &&
-      !gameState.sessionUsedWords.includes(w.main) &&
-      !gameState.usedWords.includes(w.main)
-    );
+const available = pool.filter(w => {
+  if (!w || typeof w.main !== 'string') return false;
+
+  const forbidden = this.normalizeForbidden(w.forbidden);
+  if (!forbidden) return false;
+
+  // ✅ 2’li – 3’lü – 4’lü KELİME FİLTRESİ
+const wordCount = this.getWordLength(w.main);
+if (wordCount < 1 || wordCount > 4) return false;
+
+  return (
+    !gameState.sessionUsedWords.includes(w.main) &&
+    !gameState.usedWords.includes(w.main)
+  );
+});
+
 
     if (available.length === 0) {
       gameState.sessionUsedWords = [];
@@ -10776,13 +10804,17 @@ const WordManager = {
     }
 
     const randomWord = available[Math.floor(Math.random() * available.length)];
+
     gameState.sessionUsedWords.push(randomWord.main);
     gameState.usedWords.push(randomWord.main);
 
     if (DOM.gameCard) DOM.gameCard.classList.add('card-exit');
 
     setTimeout(() => {
-      this.displayCard(randomWord);
+      this.displayCard({
+        main: randomWord.main,
+        forbidden: this.normalizeForbidden(randomWord.forbidden)
+      });
 
       if (DOM.gameCard) {
         DOM.gameCard.classList.remove('card-exit');
@@ -10810,6 +10842,7 @@ const WordManager = {
     if (DOM.forbiddenWord4) DOM.forbiddenWord4.textContent = '-';
   }
 };
+
 
 // ==========================================
 //  OYUNCU İSTATİSTİK YÖNETİCİSİ
