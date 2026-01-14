@@ -9050,26 +9050,6 @@ const DOM = {
 // ==========================================
 
 const Utils = {
-const GlobalAssetLoader = {
-  load(assets, onProgress) {
-    const list = Object.values(assets).flat();
-    let loaded = 0;
-
-    return new Promise(resolve => {
-      list.forEach(src => {
-        const img = new Image();
-        img.onload = img.onerror = () => {
-          loaded++;
-          const percent = Math.round((loaded / list.length) * 100);
-          onProgress(percent);
-          if (loaded === list.length) resolve();
-        };
-        img.src = src;
-      });
-    });
-  }
-};
-
   clamp: (n, min, max) => Math.max(min, Math.min(max, n)),
 
   safeArrayAccess: (array, index, fallback = 0) => {
@@ -9110,6 +9090,30 @@ const GlobalAssetLoader = {
     return 'teamSetup';
   }
 };
+// ==========================================
+//  GLOBAL ASSET LOADER
+// ==========================================
+
+const GlobalAssetLoader = {
+  load(assets, onProgress) {
+    const list = Object.values(assets).flat();
+    let loaded = 0;
+
+    return new Promise(resolve => {
+      list.forEach(src => {
+        const img = new Image();
+        img.onload = img.onerror = () => {
+          loaded++;
+          const percent = Math.round((loaded / list.length) * 100);
+          onProgress(percent);
+          if (loaded === list.length) resolve();
+        };
+        img.src = src;
+      });
+    });
+  }
+};
+
 
 // ==========================================
 //  SAKLAMA YÖNETİCİSİ (LocalStorage)
