@@ -9194,8 +9194,18 @@ const Utils = {
 
 const GlobalAssetLoader = {
   async load(assets, onProgress) {
-    const list = Object.values(assets).flat();
-    const total = list.length;
+    const list = [
+  ...assets.avatars,
+  ...assets.flags,
+  ...assets.ui
+];
+if (list.length === 0) {
+  onProgress(100);
+  return;
+}
+
+
+    const total = list.length || 1;
     let loaded = 0;
 
     // 📱 Düşük bellekli cihaz tespiti
@@ -9213,23 +9223,7 @@ const GlobalAssetLoader = {
     const loadOne = (src) => {
       return new Promise(resolve => {
 
-        // ✅ JSON
-        if (src.endsWith('.json')) {
-          fetch(src)
-            .then(r => r.json())
-            .then(data => {
-              window.wordPool = data;
-              loaded++;
-              updateProgress();
-              resolve();
-            })
-            .catch(() => {
-              loaded++;
-              updateProgress();
-              resolve();
-            });
-          return;
-        }
+
 
         // ✅ IMAGE
         const img = new Image();
@@ -9926,9 +9920,16 @@ const FlagManager = {
 //  ASSET VERSION
 // ==========================================
 
-const ASSET_VERSION = 'v1.0.1';
-// 🔑 TEK ANAHTAR – TÜM ASSETLER BURADAN GEÇER
-const asset = (path) => `${path}?v=${ASSET_VERSION}`;
+const ASSET_VERSION = 'v1.0.2';
+CONFIG.ASSET_VERSION = ASSET_VERSION;
+
+
+const asset = (path) =>
+  path.includes('?')
+    ? `${path}&v=${CONFIG.ASSET_VERSION}`
+    : `${path}?v=${CONFIG.ASSET_VERSION}`;
+
+
 
 const GLOBAL_ASSETS = {
   avatars: AvatarManager.avatarList.map(asset),
@@ -9937,10 +9938,9 @@ const GLOBAL_ASSETS = {
     asset('zarat.png'),
     asset('zartekrar.png')
   ],
-  data: [
-    asset('words.json')
-  ]
+  data: [] // ❗ JSON YOK
 };
+
 
 
 
@@ -10311,7 +10311,8 @@ if (DOM.rollDiceBtn) {
         if (eff(b) !== eff(a)) return eff(b) - eff(a);
         return (a.id || 0) - (b.id || 0);
       })
-      .map(t => ({ ...t })); // UI için kopya
+      .map(t => JSON.parse(JSON.stringify(t)));
+
 
     this.showOrderList();
 
@@ -10749,13 +10750,13 @@ const GameScreenManager = {
 
 const WordManager = {
 
-  getWordPoolSafe() {
-    if (Array.isArray(window.wordPool)) return window.wordPool;
-    try {
-      if (typeof wordPool !== 'undefined' && Array.isArray(wordPool)) return wordPool;
-    } catch (_) {}
-    return null;
-  },
+getWordPoolSafe() {
+  if (Array.isArray(window.wordPool)) {
+    return window.wordPool;
+  }
+  console.error('Kelime havuzu bulunamadı (window.wordPool)');
+  return [];
+},
 
   // ✅ MUTLAKA BURADA – nextCard DIŞINDA
   normalizeForbidden(forbidden) {
@@ -10801,10 +10802,12 @@ if (wordCount < 1 || wordCount > 4) return false;
 });
 
 
-    if (available.length === 0) {
-      gameState.sessionUsedWords = [];
-      return this.nextCard();
-    }
+if (available.length === 0) {
+  console.warn('Kelime havuzu tükendi veya filtre çok dar');
+  this.showFallbackCard();
+  return;
+}
+
 
     const randomWord = available[Math.floor(Math.random() * available.length)];
 
@@ -12517,9 +12520,11 @@ window.addEventListener('DOMContentLoaded', async () => {
   const storedVersion = localStorage.getItem('assetVersion');
   const needsAssetLoad = storedVersion !== ASSET_VERSION;
 
-  if (loader && needsAssetLoad) {
-    loader.style.display = 'flex';
-  }
+if (loader && bar && percent && needsAssetLoad) {
+  loader.style.display = 'flex';
+}
+
+
 
   if (needsAssetLoad) {
     await GlobalAssetLoader.load(GLOBAL_ASSETS, p => {
@@ -12688,4 +12693,3 @@ window.addEventListener('DOMContentLoaded', async () => {
     </script>
 </body>
 </html>
-
