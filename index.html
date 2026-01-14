@@ -9220,21 +9220,36 @@ if (list.length === 0) {
       onProgress(percent);
     };
 
-    const loadOne = (src) => {
-      return new Promise(resolve => {
+const loadOne = (src) => {
+  return new Promise(resolve => {
 
+    // ✅ WORDS.JS (JS FILE PRELOAD)
+    if (src.endsWith('.js')) {
+      const script = document.createElement('script');
+      script.src = src;
+      script.defer = true;
 
+      script.onload = script.onerror = () => {
+        loaded++;
+        updateProgress();
+        resolve();
+      };
 
-        // ✅ IMAGE
-        const img = new Image();
-        img.onload = img.onerror = () => {
-          loaded++;
-          updateProgress();
-          resolve();
-        };
-        img.src = src;
-      });
+      document.head.appendChild(script);
+      return;
+    }
+
+    // ✅ IMAGE
+    const img = new Image();
+    img.onload = img.onerror = () => {
+      loaded++;
+      updateProgress();
+      resolve();
     };
+    img.src = src;
+  });
+};
+
 
     // 🔁 Batch preload
     for (let i = 0; i < list.length; i += BATCH_SIZE) {
@@ -9920,7 +9935,7 @@ const FlagManager = {
 //  ASSET VERSION
 // ==========================================
 
-const ASSET_VERSION = 'v1.0.2';
+const ASSET_VERSION = 'v1.0.3';
 CONFIG.ASSET_VERSION = ASSET_VERSION;
 
 
@@ -9938,10 +9953,10 @@ const GLOBAL_ASSETS = {
     asset('zarat.png'),
     asset('zartekrar.png')
   ],
-  data: [] // ❗ JSON YOK
+  data: [
+    asset('words.js') // ✅ KELİME DOSYASI PRELOAD
+  ]
 };
-
-
 
 
 
@@ -10751,12 +10766,12 @@ const GameScreenManager = {
 const WordManager = {
 
 getWordPoolSafe() {
-  if (Array.isArray(window.wordPool)) {
-    return window.wordPool;
+  if (!Array.isArray(window.wordPool) || window.wordPool.length === 0) {
+    throw new Error('Kelime havuzu yüklenmeden oyun başlatılamaz');
   }
-  console.error('Kelime havuzu bulunamadı (window.wordPool)');
-  return [];
+  return window.wordPool;
 },
+
 
   // ✅ MUTLAKA BURADA – nextCard DIŞINDA
   normalizeForbidden(forbidden) {
@@ -12382,9 +12397,17 @@ const FixLeaveModal = {
 
 const App = {
   initialize() {
+
+    // 🚨 KELİME HAVUZU KİLİDİ
+    if (!Array.isArray(window.wordPool) || window.wordPool.length === 0) {
+      console.error('Kelime havuzu hazır değil, oyun başlatılmadı');
+      return;
+    }
+
     ParticleManager.createParticles();
 
     const hasSaved = StorageManager.loadGameState();
+
 
     if (hasSaved && StorageManager.gameState && StorageManager.gameState.gameStarted) {
       ResumeManager.showResumeScreen();
@@ -12526,19 +12549,20 @@ if (loader && bar && percent && needsAssetLoad) {
 
 
 
-  if (needsAssetLoad) {
-    await GlobalAssetLoader.load(GLOBAL_ASSETS, p => {
-      if (bar) bar.style.width = `${p}%`;
-      if (percent) {
-        if (p < 30) percent.textContent = 'Hazırlanıyor…';
-        else if (p < 70) percent.textContent = 'Avatarlar yükleniyor…';
-        else if (p < 95) percent.textContent = 'Son dokunuşlar…';
-        else percent.textContent = 'Başlatılıyor…';
-      }
-    });
+if (needsAssetLoad) {
+  await GlobalAssetLoader.load(GLOBAL_ASSETS, p => {
+    if (bar) bar.style.width = `${p}%`;
+    if (percent) {
+      if (p < 40) percent.textContent = 'Görseller hazırlanıyor…';
+      else if (p < 70) percent.textContent = 'Avatarlar yükleniyor…';
+      else if (p < 90) percent.textContent = 'Kelime havuzu yükleniyor…';
+      else percent.textContent = 'Oyun başlatılıyor…';
+    }
+  });
 
-    localStorage.setItem('assetVersion', ASSET_VERSION);
-  }
+  localStorage.setItem('assetVersion', ASSET_VERSION);
+}
+
 
   // ✅ KRİTİK FIX
   if (loader) {
