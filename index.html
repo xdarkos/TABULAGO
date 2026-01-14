@@ -1640,131 +1640,327 @@ header .subtitle {
 }
 
 /* =========================================================
-   KAZANAN EKRANI STİLLERİ
+   KAZANAN EKRANI – GÖRSELLİ BUTONLAR (OPTİMİZE)
    ========================================================= */
+
+.winner-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;           /* masaüstü sıkı boşluk */
+    margin-top: 8px;
+    padding: 0;
+}
+
+/* =========================================================
+   BUTON RESET
+   ========================================================= */
+
+.image-btn {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 0;     /* 🔥 hayali alt boşluk yok */
+}
+
+/* =========================================================
+   GÖRSEL
+   ========================================================= */
+
+.image-btn img {
+    display: block;     /* 🔥 inline boşluk iptal */
+    width: 210px;       /* masaüstü ideal */
+    max-width: 90vw;
+    height: auto;
+
+    cursor: pointer;
+    transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+/* Hover – sadece mouse cihazlar */
+@media (hover: hover) {
+    .image-btn:hover img {
+        transform: scale(1.04);
+        filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+    }
+}
+
+.image-btn:active img {
+    transform: scale(0.97);
+}
+
+/* =========================================================
+   MOBİL – ALT ALTA & SIKI
+   ========================================================= */
+
+@media (max-width: 600px) {
+    .winner-controls {
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 6px;
+    }
+
+    .image-btn img {
+        width: 190px;
+    }
+}
+
+/* Küçük telefonlar */
+@media (max-width: 390px) {
+    .image-btn img {
+        width: 175px;
+    }
+}
+
+/* =========================================================
+   MOBİL – OYUNCU SONUÇ BUTONU YUKARI AL
+   (Flex’ten etkilenmeyen NET ÇÖZÜM)
+   ========================================================= */
+
+@media (max-width: 600px) {
+    .image-btn-result img {
+        transform: translateY(-32px);
+    }
+}
+
+@media (max-width: 390px) {
+    .image-btn-result img {
+        transform: translateY(-42px);
+    }
+}
+
+
+
+/* =========================================================
+   KAZANAN EKRANI – NİHAİ & OPTİMİZE
+   ========================================================= */
+
 .winner-screen {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* ❗ ÜST BOŞLUK AZALTILDI */
+    padding: clamp(16px, 4vw, 28px) 20px 30px;
 }
 
-.winner-title {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    margin-bottom: 25px;
-    background: linear-gradient(to right, #ff9a3c, #00b4db, #9b59b6, #2ecc71);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 800;
+/* =========================================================
+   OYUN BİTTİ BAŞLIK GÖRSELİ
+   ========================================================= */
+
+.winner-title-img {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* ❗ GÖRSEL ALT BOŞLUĞU SIKI */
+    margin-bottom: 8px;
 }
+
+.winner-title-img img {
+    width: 520px;          /* masaüstü büyük */
+    max-width: 92vw;       /* taşma yok */
+    height: auto;
+    display: block;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .winner-title-img img {
+        width: 440px;
+    }
+}
+
+/* Mobil */
+@media (max-width: 600px) {
+    .winner-title-img {
+        margin-bottom: 6px;
+    }
+
+    .winner-title-img img {
+        width: 360px;
+    }
+}
+
+/* Küçük telefonlar */
+@media (max-width: 390px) {
+    .winner-title-img img {
+        width: 320px;
+    }
+}
+
+/* =========================================================
+   KAZANAN TAKIM ETİKETİ
+   ========================================================= */
 
 .winner-team {
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: 40px;
-    padding: 20px;
+    font-size: clamp(2rem, 4.8vw, 2.9rem);
+
+    /* ❗ GÖRSELE YAKLAŞTIRILDI */
+    margin-top: 4px;
+    margin-bottom: 22px;
+
+    padding: 16px 28px;
     border-radius: var(--radius);
-    background: rgba(255, 255, 255, 0.1);
-    display: inline-block;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    animation: winnerPulse 2s infinite;
+
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+
+    box-shadow: 0 0 24px rgba(255,255,255,0.28);
+    animation: winnerPulse 2.2s ease-in-out infinite;
 }
 
 @keyframes winnerPulse {
-    0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
-    50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 255, 255, 0.5); }
-    100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 18px rgba(255,255,255,0.25);
+    }
+    50% {
+        transform: scale(1.035);
+        box-shadow: 0 0 36px rgba(255,255,255,0.45);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 18px rgba(255,255,255,0.25);
+    }
 }
 
+/* =========================================================
+   SKOR KARTLARI
+   ========================================================= */
+
 .final-scores {
+    width: 100%;
+    max-width: 800px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 25px;
-    margin-bottom: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 18px;
+
+    margin-bottom: 26px;
 }
 
 .final-score {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 25px 15px;
+    background: rgba(255, 255, 255, 0.15);
     border-radius: var(--radius);
-    transition: var(--transition);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 22px 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.25s ease, background 0.25s ease;
 }
 
 .final-score:hover {
-    transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.22);
 }
 
 .score-value {
-    font-size: clamp(3rem, 7vw, 5rem);
-    font-weight: bold;
+    font-size: clamp(2.8rem, 6.5vw, 4.6rem);
+    font-weight: 800;
     line-height: 1;
 }
 
-.team1-score {
-    color: var(--team1);
-}
-
-.team2-score {
-    color: var(--team2);
-}
-
-.team3-score {
-    color: var(--team3);
-}
-
-.team4-score {
-    color: var(--team4);
-}
-
 .score-label {
-    font-size: 1.1rem;
-    opacity: 0.8;
-    margin-top: 10px;
+    margin-top: 6px;
+    font-size: 0.95rem;
+    opacity: 0.85;
 }
+
+/* Takım renkleri */
+.team1-score { color: var(--team1); }
+.team2-score { color: var(--team2); }
+.team3-score { color: var(--team3); }
+.team4-score { color: var(--team4); }
+
+/* =========================================================
+   UZATMA / BİLGİ KUTUSU
+   ========================================================= */
 
 .overtime-notice {
-    background: rgba(255, 255, 255, 0.15);
-    padding: 20px;
+    max-width: 800px;
+    margin-bottom: 22px;
+    padding: 16px 22px;
+
+    background: rgba(255, 255, 255, 0.18);
     border-radius: var(--radius);
-    margin-bottom: 25px;
-    font-size: 1.2rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    animation: pulse 2s infinite;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+
+    font-size: 1.05rem;
+    animation: pulse 2.4s ease-in-out infinite;
 }
 
+/* =========================================================
+   KURALLAR / AÇIKLAMA
+   ========================================================= */
+
 .rules-section {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius);
+    max-width: 800px;
+    margin-bottom: 22px;
     padding: 20px;
-    margin-bottom: 25px;
+
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
     text-align: left;
-    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .rules-title {
-    font-size: 1.4rem;
-    margin-bottom: 20px;
     text-align: center;
+    font-size: 1.25rem;
     font-weight: 700;
+    margin-bottom: 14px;
 }
 
 .rules-list {
-    list-style-type: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .rules-list li {
-    margin-bottom: 12px;
-    padding-left: 25px;
     position: relative;
+    padding-left: 22px;
+    margin-bottom: 8px;
+    line-height: 1.4;
 }
 
-.rules-list li:before {
+.rules-list li::before {
     content: "•";
-    color: var(--accent);
     position: absolute;
     left: 0;
-    font-size: 1.5rem;
+    top: 0;
+    font-size: 1.3rem;
+    color: var(--accent);
 }
+
+/* =========================================================
+   MOBİL İNCE AYAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+    .winner-team {
+        margin-bottom: 18px;
+        padding: 14px 22px;
+    }
+
+    .final-scores {
+        gap: 14px;
+        margin-bottom: 22px;
+    }
+}
+
+
 
 /* =========================================================
    DURAKLATMA EKRANI STİLLERİ
@@ -7549,6 +7745,291 @@ body.modal-open {
     }
 }
 
+/* =========================================================
+   GENEL WRAPPER
+   ========================================================= */
+
+.player-result-wrapper {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(36px, 6vw, 64px) 20px;
+  text-align: center;
+}
+
+/* =========================================================
+   BAŞLIK GÖRSELİ
+   ========================================================= */
+
+.player-result-title-img {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: clamp(28px, 5vw, 44px);
+}
+
+.player-result-title-img::before {
+  content: "";
+  position: absolute;
+  width: min(520px, 90%);
+  height: 150px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255,255,255,0.18),
+    rgba(255,255,255,0.04),
+    transparent 70%
+  );
+  filter: blur(28px);
+  z-index: 0;
+}
+
+.player-result-title-img img {
+  position: relative;
+  z-index: 1;
+  width: clamp(320px, 42vw, 480px);
+  max-width: 92vw;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 18px 40px rgba(0,0,0,0.65));
+}
+
+/* =========================================================
+   GRID – HİZALAMA DÜZELTİLDİ
+   ========================================================= */
+
+.player-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 28px;
+
+  max-width: 1000px;            /* 🔑 ORTALAMA ANAHTARI */
+  margin: 0 auto;               /* 🔑 TAM ORTA */
+  justify-items: center;        /* 🔑 KARTLAR ORTALI */
+}
+
+/* =========================================================
+   OYUNCU KARTI
+   ========================================================= */
+
+.player-result-card {
+  width: 100%;
+  max-width: 320px;             /* 🔑 TÜM KARTLAR EŞİT */
+
+  background: linear-gradient(
+    180deg,
+    rgba(26,26,32,0.96),
+    rgba(15,15,18,0.96)
+  );
+  border-radius: 22px;
+  padding: 24px 22px 26px;
+
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.6);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.player-result-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 28px 64px rgba(0,0,0,0.75);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.player-result-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+
+/* Avatar */
+.player-avatar img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.35);
+  background: #111;
+}
+
+/* Oyuncu adı */
+.player-info {
+  text-align: left;
+}
+
+.player-name {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+/* =========================================================
+   İSTATİSTİKLER – OKUNAKLI
+   ========================================================= */
+
+.player-result-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.stat {
+  border-radius: 14px;
+  padding: 14px 10px 12px;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+.stat span {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-bottom: 6px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* =========================================================
+   RENKLER
+   ========================================================= */
+
+.stat.good {
+  background: rgba(46,204,113,0.18);
+  border-color: rgba(46,204,113,0.55);
+}
+.stat.good strong { color: #2ecc71; }
+
+.stat.bad {
+  background: rgba(255,107,107,0.18);
+  border-color: rgba(255,107,107,0.55);
+}
+.stat.bad strong { color: #ff6b6b; }
+
+.stat.neutral {
+  background: rgba(241,196,15,0.22);
+  border-color: rgba(241,196,15,0.6);
+}
+.stat.neutral strong { color: #f1c40f; }
+
+/* =========================================================
+   GERİYE.PNG – HOVER TAMAMEN KAPALI & BÜYÜK
+   ========================================================= */
+
+.player-result-actions {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.player-result-actions .image-btn {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+}
+
+/* 🔴 HOVER YOK */
+.player-result-actions img {
+  display: block;
+  width: 300px;                /* 🔥 MASAÜSTÜ BÜYÜK */
+  max-width: 90vw;
+  height: auto;
+
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  filter: drop-shadow(0 18px 36px rgba(0,0,0,0.65));
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .player-result-actions img {
+    width: 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .player-result-grid {
+    gap: 22px;
+  }
+
+  .player-avatar img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .stat strong {
+    font-size: 1.9rem;
+  }
+
+  .player-result-actions img {
+    width: 200px;
+  }
+}
+
+@media (max-width: 390px) {
+  .player-result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .player-result-actions img {
+    width: 170px;
+  }
+}
+
+/* Dokunmatik cihazlarda hover tamamen kapalı */
+@media (hover: none) {
+  .player-result-card:hover {
+    transform: none;
+    box-shadow: 0 18px 44px rgba(0,0,0,0.6);
+  }
+}
+/* =========================================================
+   GERİYE.PNG – SADECE GÖRSEL HOVER ANİMASYONU
+   ========================================================= */
+
+/* Button tamamen nötr */
+#playerResultBackBtn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+/* Button pseudo-element iptal */
+#playerResultBackBtn::before,
+#playerResultBackBtn::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Görsel – normal durum */
+#playerResultBackBtn img {
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+/* 🔥 SADECE GÖRSEL HOVER */
+#playerResultBackBtn img:hover {
+  transform: scale(1.08);
+}
+
+
+
+
     </style>
 </head>
 <body>
@@ -7962,21 +8443,68 @@ body.modal-open {
 </div>
 
         
-        <!-- 11. KAZANAN EKRANI -->
-        <div class="screen" id="winnerScreen">
-            <h2 class="winner-title">Oyun Bitti!</h2>
-            <div class="winner-team" id="winnerTeamName">Takım 1 Kazandı!</div>
-            <div class="final-scores" id="finalScores"></div>
-            <div class="stats-table-container" id="statsTableContainer"></div>
-            <div class="game-controls" style="margin-top: 30px;">
-                <button class="btn" id="playAgainBtn">
-                    <i class="fas fa-redo"></i> Yeni Oyun
-                </button>
-                <button class="btn" id="mainMenuBtn">
-                    <i class="fas fa-home"></i> Ana Menü
-                </button>
-            </div>
+<!-- 11. KAZANAN EKRANI -->
+<div class="screen" id="winnerScreen">
+    <div class="winner-screen">
+
+        <!-- OYUN BİTTİ BAŞLIK GÖRSELİ -->
+        <div class="winner-title-img">
+            <img src="oyun-bitti.png" alt="Oyun Bitti">
         </div>
+
+        <!-- KAZANAN TAKIM -->
+        <div class="winner-team" id="winnerTeamName">
+            Takım 1 Kazandı!
+        </div>
+
+        <!-- SKORLAR -->
+        <div class="final-scores" id="finalScores"></div>
+
+        <!-- İSTATİSTİK TABLOSU -->
+        <div class="stats-table-container" id="statsTableContainer"></div>
+
+        <!-- KONTROLLER (GÖRSELLİ) -->
+        <div class="winner-controls">
+
+            <!-- YENİ OYUN -->
+            <button class="btn image-btn" id="playAgainBtn">
+                <img src="yeni-oyun.png" alt="Yeni Oyun">
+            </button>
+
+            <!-- ANA MENÜ / OYUNCU SONUÇ -->
+            <button class="btn image-btn image-btn-result" id="mainMenuBtn">
+                <img src="oyuncu-sonuc.png" alt="Ana Menü">
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- OYUNCU SONUÇ EKRANI -->
+<div class="screen" id="playerResultScreen">
+  <div class="player-result-wrapper">
+
+    <!-- OYUNCU PERFORMANS BAŞLIK GÖRSELİ -->
+<div class="player-result-title-img">
+  <img src="oyuncu-performans.png" alt="Oyuncu Performansları">
+</div>
+
+
+    <div class="player-result-grid" id="playerResultGrid"></div>
+
+    <div class="player-result-actions">
+      <button class="btn image-btn" id="playerResultBackBtn">
+  <img src="geriye.png" alt="Geri Dön">
+</button>
+
+    </div>
+
+  </div>
+</div>
+
+
+
     </div>
     
     <!-- ===== KURALLAR MODAL ===== -->
@@ -8226,7 +8754,7 @@ const CONFIG = {
   AUTOSAVE_MS: 10000,
   CLEANUP_MS: 60000,
   SAVE_TTL_HOURS: 24,
-  TURN_SECONDS_DEFAULT: 60,
+  TURN_SECONDS_DEFAULT: 2,
   MAX_TEAMS: 4,
   MIN_TEAMS: 2,
   MAX_ROUNDS: 3,
@@ -8337,23 +8865,28 @@ const DOM = {
     game: document.getElementById('gameScreen'),
     pause: document.getElementById('pauseScreen'),
     tie: document.getElementById('tieScreen'),
-    winner: document.getElementById('winnerScreen')
+    winner: document.getElementById('winnerScreen'),
+    playerResult: document.getElementById('playerResultScreen')
   },
 
+  /* ===== MODALLAR ===== */
   rulesModal: document.getElementById('rulesModal'),
   rulesModalBackdrop: document.getElementById('rulesModalBackdrop'),
   rulesModalClose: document.getElementById('rulesModalClose'),
   rulesBtn: document.getElementById('rulesBtn'),
   rulesUnderstoodBtn: document.getElementById('rulesUnderstoodBtn'),
 
+  /* ===== RESUME ===== */
   resumeInfo: document.getElementById('resumeInfo'),
   resumeGameBtn: document.getElementById('resumeGameBtn'),
   newGameBtn: document.getElementById('newGameBtn'),
 
+  /* ===== TAKIM KURMA ===== */
   teamsContainer: document.getElementById('teamsContainer'),
   addTeamBtn: document.getElementById('addTeamBtn'),
   totalRoundsInput: document.getElementById('totalRounds'),
 
+  /* ===== AVATAR ===== */
   currentTeamNameDisplay: document.getElementById('currentTeamName'),
   currentPlayerNameDisplay: document.getElementById('currentPlayerName'),
   avatarGrid: document.getElementById('avatarGrid'),
@@ -8361,21 +8894,23 @@ const DOM = {
   progressText: document.getElementById('progressText'),
   teamReadyBtn: document.getElementById('teamReadyBtn'),
 
+  /* ===== FLAMA ===== */
   currentFlagTeamNameDisplay: document.getElementById('currentFlagTeamName'),
   flagGrid: document.getElementById('flagGrid'),
   flagProgressDots: document.getElementById('flagProgressDots'),
   flagProgressText: document.getElementById('flagProgressText'),
   flagReadyBtn: document.getElementById('flagReadyBtn'),
 
+  /* ===== ZAR ===== */
   readyTeamsContainer: document.getElementById('readyTeams'),
   goToDiceBtn: document.getElementById('goToDiceBtn'),
-
   diceContainer: document.getElementById('diceContainer'),
   tieInfoContainer: document.getElementById('tieInfoContainer'),
   rollDiceBtn: document.getElementById('rollDiceBtn'),
   orderList: document.getElementById('orderList'),
   startAfterDiceBtn: document.getElementById('startAfterDiceBtn'),
 
+  /* ===== TUR ===== */
   turnTeamNameDisplay: document.getElementById('turnTeamName'),
   turnTeamAvatarDisplay: document.getElementById('turnTeamAvatar'),
   turnCountdownDisplay: document.getElementById('turnCountdown'),
@@ -8383,6 +8918,7 @@ const DOM = {
   teamStatsContainer: document.getElementById('teamStatsContainer'),
   turnCurrentPlayerDisplay: document.getElementById('turnCurrentPlayer'),
 
+  /* ===== OYUN ===== */
   currentRoundDisplay: document.getElementById('currentRoundDisplay'),
   currentTeamDisplay: document.getElementById('currentTeamDisplay'),
   currentPlayerDisplay: document.getElementById('currentPlayerDisplay'),
@@ -8403,6 +8939,7 @@ const DOM = {
   currentTeamPassCount: document.getElementById('currentTeamPassCount'),
   gameCard: document.getElementById('gameCard'),
 
+  /* ===== PAUSE ===== */
   pauseCurrentRoundDisplay: document.getElementById('pauseCurrentRound'),
   pauseCurrentTeamDisplay: document.getElementById('pauseCurrentTeam'),
   pauseCurrentPlayerDisplay: document.getElementById('pauseCurrentPlayer'),
@@ -8415,18 +8952,24 @@ const DOM = {
   quitCancelBtn: document.getElementById('quitCancelBtn'),
   quitConfirmBtn: document.getElementById('quitConfirmBtn'),
 
+  /* ===== EŞİTLİK ===== */
   tieTeamsContainer: document.getElementById('tieTeams'),
   tieExplanationContainer: document.getElementById('tieExplanation'),
   continueTieBtn: document.getElementById('continueTieBtn'),
 
+  /* ===== KAZANAN ===== */
   winnerTeamNameDisplay: document.getElementById('winnerTeamName'),
   finalScoresContainer: document.getElementById('finalScores'),
   statsTableContainer: document.getElementById('statsTableContainer'),
-
   startGameBtn: document.getElementById('startGameBtn'),
   playAgainBtn: document.getElementById('playAgainBtn'),
-  mainMenuBtn: document.getElementById('mainMenuBtn')
+  mainMenuBtn: document.getElementById('mainMenuBtn'),
+
+  /* ===== OYUNCU SONUÇ ===== */
+  playerResultGrid: document.getElementById('playerResultGrid'),
+  playerResultBackBtn: document.getElementById('playerResultBackBtn')
 };
+
 
 // ==========================================
 //  UTİLİTY FONKSİYONLARI
@@ -10463,6 +11006,66 @@ continueTieGame() {
 //  OYUN YÖNETİCİSİ
 // ==========================================
 
+const PlayerResultManager = {
+
+  show() {
+    this.render();
+    ScreenManager.showScreen('playerResult');
+  },
+
+  render() {
+    const grid = DOM.playerResultGrid;
+    if (!grid) return;
+
+    const gameState = StorageManager.gameState;
+    grid.innerHTML = '';
+
+    if (!Array.isArray(gameState.playerStats)) return;
+
+    gameState.playerStats.forEach(teamStat => {
+      const team = gameState.teams.find(t => t.id === teamStat.teamId);
+      const flag = gameState.teamFlags.find(f => f.teamId === team.id);
+
+      teamStat.players.forEach(player => {
+
+        const avatar = gameState.playerAvatars.find(
+          a => a.teamId === team.id && a.playerName === player.name
+        );
+
+        const card = document.createElement('div');
+        card.className = 'player-result-card';
+
+        card.innerHTML = `
+          <div class="player-result-header" style="border-color:${flag?.flagColor || '#fff'}">
+            <div class="player-avatar">
+              ${
+                avatar
+                  ? `<img src="${avatar.avatarPath}" alt="${player.name}">`
+                  : `<div class="avatar-placeholder">?</div>`
+              }
+            </div>
+            <div class="player-info">
+              <div class="player-name">${player.name}</div>
+              <div class="player-team" style="color:${flag?.flagColor || '#fff'}">
+                ${team.name}
+              </div>
+            </div>
+          </div>
+
+          <div class="player-result-stats">
+            <div class="stat good"><span>Doğru</span><strong>${player.correct}</strong></div>
+            <div class="stat bad"><span>Yasak</span><strong>${player.forbidden}</strong></div>
+            <div class="stat neutral"><span>Pas</span><strong>${player.passes}</strong></div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    });
+  }
+};
+
+
 const GameManager = {
   startGame() {
     const gameState = StorageManager.gameState;
@@ -10665,24 +11268,36 @@ endGameFlow() {
   this.finalizeGameWithRanking();
 },
 
-  finalizeGameWithRanking() {
-    ScreenManager.clearAllIntervals();
-    GameTimer.stopTimer();
+finalizeGameWithRanking() {
+  ScreenManager.clearAllIntervals();
+  GameTimer.stopTimer();
 
-    const orderedTeams = TieManager.computeFinalRanking();
-    if (!orderedTeams.length) return;
+  const gameState = StorageManager.gameState;
 
-    const winnerTeam = orderedTeams[0];
-    if (DOM.winnerTeamNameDisplay) DOM.winnerTeamNameDisplay.textContent = `${winnerTeam.name} Kazandı!`;
+  const orderedTeams = TieManager.computeFinalRanking();
+  if (!orderedTeams.length) return;
 
-    this.renderFinalScores(orderedTeams);
-    this.createStatsTable(orderedTeams);
+  const winnerTeam = orderedTeams[0];
 
-    ScreenManager.showScreen('winner');
-    this.createConfetti();
+  // ✅ KAZANAN STATE'İ KAYDET
+  gameState.gameEnded = true;
+  gameState.finalRanking = orderedTeams;
+  gameState.winnerTeamId = winnerTeam.id;
+  gameState.activeScreen = 'winner';
 
-    StorageManager.clearAll();
-  },
+  if (DOM.winnerTeamNameDisplay) {
+    DOM.winnerTeamNameDisplay.textContent = `${winnerTeam.name} Kazandı!`;
+  }
+
+  this.renderFinalScores(orderedTeams);
+  this.createStatsTable(orderedTeams);
+
+  ScreenManager.showScreen('winner');
+  this.createConfetti();
+
+  // ❗ CLEAR YOK
+  StorageManager.saveGameStateThrottled(true);
+},
 
   renderFinalScores(orderedTeams) {
     if (!DOM.finalScoresContainer) return;
@@ -11005,9 +11620,24 @@ confirmQuitGame() {
 // ==========================================
 
 const ResumeManager = {
-  showResumeScreen() {
-    const gameState = StorageManager.gameState;
-    if (!gameState || !gameState.gameStarted) { GameManager.initializeNewGame(); return; }
+showResumeScreen() {
+  const gameState = StorageManager.gameState;
+
+  // ✅ OYUN BİTTİYSE DİREKT KAZANAN EKRANI
+  if (gameState?.gameEnded && gameState.activeScreen === 'winner') {
+    const orderedTeams = gameState.finalRanking || [];
+    const winner = orderedTeams[0];
+
+    if (winner && DOM.winnerTeamNameDisplay) {
+      DOM.winnerTeamNameDisplay.textContent = `${winner.name} Kazandı!`;
+    }
+
+    GameManager.renderFinalScores(orderedTeams);
+    GameManager.createStatsTable(orderedTeams);
+
+    ScreenManager.showScreen('winner');
+    return;
+  }
 
     const turn = TurnManager.getCurrentTurn();
     if (!turn) { GameManager.initializeNewGame(); return; }
@@ -11245,7 +11875,22 @@ const EventManager = {
   initializeEventListeners() {
     if (DOM.startGameBtn) DOM.startGameBtn.addEventListener('click', () => GameManager.startGame());
     if (DOM.playAgainBtn) DOM.playAgainBtn.addEventListener('click', () => GameManager.resetGame());
-    if (DOM.mainMenuBtn) DOM.mainMenuBtn.addEventListener('click', () => GameManager.goToMainMenu());
+    if (DOM.mainMenuBtn) {
+  DOM.mainMenuBtn.addEventListener('click', () => {
+    PlayerResultManager.show();
+  });
+}
+if (DOM.playerResultBackBtn) {
+  DOM.playerResultBackBtn.addEventListener('click', () => {
+    ScreenManager.showScreen('winner');
+  });
+}
+if (DOM.playerResultBackBtn) {
+  DOM.playerResultBackBtn.addEventListener('click', () => {
+    ScreenManager.showScreen('winner');
+  });
+}
+
 
     if (DOM.addTeamBtn) DOM.addTeamBtn.addEventListener('click', () => { TeamManager.addTeam(); StorageManager.saveGameStateThrottled(); });
 
@@ -11711,4 +12356,3 @@ window.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
-
