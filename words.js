@@ -1,5 +1,5 @@
         // Kelime havuzu
-        const wordPool = [
+        window.wordPool = [
 { main: "A.R.O.G", forbidden: ["ARİF", "UZAY", "ZAMAN", "CEM YILMAZ", "FİLM"] },
 { main: "ABAJUR", forbidden: ["LAMBA", "IŞIK", "MASA", "AYDINLATMA", "ŞAPKA"] },
 { main: "ACUN ILICALI", forbidden: ["TV", "YAPIMCI", "SURVIVOR", "KANAL", "SUNUCU"] },
