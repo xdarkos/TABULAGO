@@ -12093,11 +12093,7 @@ const EventManager = {
     PlayerResultManager.show();
   });
 }
-if (DOM.playerResultBackBtn) {
-  DOM.playerResultBackBtn.addEventListener('click', () => {
-    ScreenManager.showScreen('winner');
-  });
-}
+
 if (DOM.playerResultBackBtn) {
   DOM.playerResultBackBtn.addEventListener('click', () => {
     ScreenManager.showScreen('winner');
@@ -12414,7 +12410,9 @@ if (DOM.quitConfirmBtn) {
 //  GLOBAL DEĞİŞKENLER (backward compatibility)
 // ==========================================
 
-window.gameState = StorageManager.gameState;
+Object.defineProperty(window, 'gameState', {
+  get: () => StorageManager.gameState
+});
 window.showScreen = ScreenManager.showScreen;
 window.saveGameStateThrottled = () => StorageManager.saveGameStateThrottled();
 window.startTimer = () => GameTimer.startTimer();
@@ -12424,53 +12422,52 @@ window.updateGameDisplay = () => GameScreenManager.updateGameDisplay();
 window.updatePassDisplay = () => GameScreenManager.updatePassDisplay();
 window.updateTimerDisplay = (sec) => GameTimer.updateTimerDisplay(sec);
 
+
 // ==========================================
 //  UYGULAMAYI BAŞLAT
 // ==========================================
 
 window.addEventListener('DOMContentLoaded', async () => {
 
-  const loader = document.getElementById('globalLoader');
-  const bar = document.getElementById('globalLoaderProgress');
+  const loader  = document.getElementById('globalLoader');
+  const bar     = document.getElementById('globalLoaderProgress');
   const percent = document.getElementById('globalLoaderPercent');
 
+  const storedVersion = localStorage.getItem('assetVersion');
+  const needsAssetLoad = storedVersion !== ASSET_VERSION;
+
   if (loader && needsAssetLoad) {
-  loader.style.display = 'flex';
-}
+    loader.style.display = 'flex';
+  }
 
+  if (needsAssetLoad) {
+    await GlobalAssetLoader.load(GLOBAL_ASSETS, p => {
+      if (bar) bar.style.width = `${p}%`;
+      if (percent) {
+        if (p < 30) percent.textContent = 'Hazırlanıyor…';
+        else if (p < 70) percent.textContent = 'Avatarlar yükleniyor…';
+        else if (p < 95) percent.textContent = 'Son dokunuşlar…';
+        else percent.textContent = 'Başlatılıyor…';
+      }
+    });
 
-// ==========================================
-//  VERSION BAZLI GLOBAL LOADER
-// ==========================================
+    localStorage.setItem('assetVersion', ASSET_VERSION);
+  }
 
-const storedVersion = localStorage.getItem('assetVersion');
-const needsAssetLoad = storedVersion !== ASSET_VERSION;
-
-if (loader && needsAssetLoad) {
-  loader.style.display = 'flex';
-}
-
-if (needsAssetLoad) {
-  await GlobalAssetLoader.load(GLOBAL_ASSETS, p => {
-    if (bar) bar.style.width = `${p}%`;
-    if (percent) {
-      if (p < 30) percent.textContent = 'Hazırlanıyor…';
-      else if (p < 70) percent.textContent = 'Avatarlar yükleniyor…';
-      else if (p < 95) percent.textContent = 'Son dokunuşlar…';
-      else percent.textContent = 'Başlatılıyor…';
+  // ✅ KRİTİK FIX
+  if (loader) {
+    if (needsAssetLoad) {
+      loader.classList.add('hide');
+      setTimeout(() => loader.remove(), 700);
+    } else {
+      loader.remove();
     }
-  });
-
-  localStorage.setItem('assetVersion', ASSET_VERSION);
-}
-
-if (loader && needsAssetLoad) {
-  loader.classList.add('hide');
-  setTimeout(() => loader.remove(), 700);
-}
+  }
 
   App.initialize();
 });
+
+
 
 
 // ==========================================
