@@ -8087,6 +8087,56 @@ body.modal-open {
     visibility: hidden;
   }
 }
+/* ==========================================
+   GLOBAL LOADER – INTRO ANİMASYON
+   ========================================== */
+
+@keyframes loaderIntroFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes loaderPulse {
+  0%   { letter-spacing: 2px; }
+  50%  { letter-spacing: 6px; }
+  100% { letter-spacing: 2px; }
+}
+
+@keyframes loaderExit {
+  to {
+    opacity: 0;
+    transform: scale(1.04);
+    filter: blur(8px);
+  }
+}
+
+/* Loader box intro */
+.global-loader-box {
+  animation: loaderIntroFade 0.65s cubic-bezier(.2,.9,.3,1) forwards;
+}
+
+/* Başlık animasyonu */
+.global-loader-title {
+  animation: loaderPulse 2.4s ease-in-out infinite;
+}
+
+/* Progress bar daha akıcı */
+.global-loader-progress {
+  transition: width 0.35s cubic-bezier(.4,0,.2,1);
+}
+
+/* Çıkış animasyonu override */
+.global-loader.hide {
+  animation: loaderExit 0.55s ease forwards;
+}
 
 
 
@@ -8805,7 +8855,7 @@ body.modal-open {
 	<div id="globalLoader" class="global-loader">
   <div class="global-loader-box">
     <div class="global-loader-title">TABULAGO</div>
-    <div class="global-loader-sub">Oyun hazırlanıyor…</div>
+    <div class="global-loader-sub">AVATARLAR YÜKLENİYOR</div>
 
     <div class="global-loader-bar">
       <div id="globalLoaderProgress" class="global-loader-progress"></div>
@@ -9094,25 +9144,69 @@ const Utils = {
 //  GLOBAL ASSET LOADER
 // ==========================================
 
+// ==========================================
+//  GLOBAL ASSET LOADER (BATCH + MOBILE SAFE)
+// ==========================================
+
 const GlobalAssetLoader = {
-  load(assets, onProgress) {
+  async load(assets, onProgress) {
     const list = Object.values(assets).flat();
+    const total = list.length;
     let loaded = 0;
 
-    return new Promise(resolve => {
-      list.forEach(src => {
+    // 📱 Düşük bellekli cihaz tespiti
+    const isLowMemoryDevice =
+      navigator.deviceMemory && navigator.deviceMemory <= 2;
+
+    // Batch boyutu
+    const BATCH_SIZE = isLowMemoryDevice ? 4 : 10;
+
+    const updateProgress = () => {
+      const percent = Math.round((loaded / total) * 100);
+      onProgress(percent);
+    };
+
+    const loadOne = (src) => {
+      return new Promise(resolve => {
+
+        // ✅ JSON
+        if (src.endsWith('.json')) {
+          fetch(src)
+            .then(r => r.json())
+            .then(data => {
+              window.wordPool = data;
+              loaded++;
+              updateProgress();
+              resolve();
+            })
+            .catch(() => {
+              loaded++;
+              updateProgress();
+              resolve();
+            });
+          return;
+        }
+
+        // ✅ IMAGE
         const img = new Image();
         img.onload = img.onerror = () => {
           loaded++;
-          const percent = Math.round((loaded / list.length) * 100);
-          onProgress(percent);
-          if (loaded === list.length) resolve();
+          updateProgress();
+          resolve();
         };
         img.src = src;
       });
-    });
+    };
+
+    // 🔁 Batch preload
+    for (let i = 0; i < list.length; i += BATCH_SIZE) {
+      const batch = list.slice(i, i + BATCH_SIZE);
+      await Promise.all(batch.map(loadOne));
+    }
   }
 };
+
+
 
 
 // ==========================================
@@ -9784,14 +9878,25 @@ const FlagManager = {
   }
 };
 
+// ==========================================
+//  ASSET VERSION
+// ==========================================
+
+const ASSET_VERSION = 'v1.0.0';
+
+
 const GLOBAL_ASSETS = {
   avatars: AvatarManager.avatarList,
   flags: FlagManager.flagList.map(f => f.image),
   ui: [
     'zarat.png',
     'zartekrar.png'
+  ],
+  data: [
+    'words.json'
   ]
 };
+
 
 
 // ==========================================
@@ -12329,22 +12434,40 @@ window.addEventListener('DOMContentLoaded', async () => {
   const bar = document.getElementById('globalLoaderProgress');
   const percent = document.getElementById('globalLoaderPercent');
 
-  if (loader) loader.style.display = 'flex';
+  if (loader && needsAssetLoad) {
+  loader.style.display = 'flex';
+}
 
-  // 🔒 Resume varsa loader atlanır
-  const hasSaved = localStorage.getItem(CONFIG.STORAGE_KEY);
 
-  if (!hasSaved) {
-    await GlobalAssetLoader.load(GLOBAL_ASSETS, p => {
-      if (bar) bar.style.width = `${p}%`;
-      if (percent) percent.textContent = `${p}%`;
-    });
-  }
+// ==========================================
+//  VERSION BAZLI GLOBAL LOADER
+// ==========================================
 
-  if (loader) {
-    loader.classList.add('hide');
-    setTimeout(() => loader.remove(), 700);
-  }
+const storedVersion = localStorage.getItem('assetVersion');
+const needsAssetLoad = storedVersion !== ASSET_VERSION;
+
+if (loader && needsAssetLoad) {
+  loader.style.display = 'flex';
+}
+
+if (needsAssetLoad) {
+  await GlobalAssetLoader.load(GLOBAL_ASSETS, p => {
+    if (bar) bar.style.width = `${p}%`;
+    if (percent) {
+      if (p < 30) percent.textContent = 'Hazırlanıyor…';
+      else if (p < 70) percent.textContent = 'Avatarlar yükleniyor…';
+      else if (p < 95) percent.textContent = 'Son dokunuşlar…';
+      else percent.textContent = 'Başlatılıyor…';
+    }
+  });
+
+  localStorage.setItem('assetVersion', ASSET_VERSION);
+}
+
+if (loader && needsAssetLoad) {
+  loader.classList.add('hide');
+  setTimeout(() => loader.remove(), 700);
+}
 
   App.initialize();
 });
