@@ -8027,117 +8027,151 @@ body.modal-open {
   transform: scale(1.08);
 }
 
-.global-loader {
+/* ==========================================
+   TABULAGO – INTRO LOADER (FINAL)
+   ========================================== */
+
+.intro-loader {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at top, #1e1e2f, #0c0c14);
   z-index: 99999;
-  display: flex;
+  display: none;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.global-loader-box {
-  width: min(420px, 90%);
-  text-align: center;
-  color: #fff;
-}
-
-.global-loader-title {
-  font-size: 1.8rem;
-  font-weight: 900;
-  letter-spacing: 3px;
-  margin-bottom: 6px;
-}
-
-.global-loader-sub {
-  font-size: 1rem;
-  opacity: 0.85;
-  margin-bottom: 28px;
-}
-
-.global-loader-bar {
-  width: 100%;
-  height: 14px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.15);
+  background:
+    radial-gradient(circle at top, #1b1b32, #06060b 70%),
+    linear-gradient(180deg, rgba(255,255,255,.04), transparent);
   overflow: hidden;
 }
 
-.global-loader-progress {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, #ff9a3c, #ff6b6b, #ffd93d);
-  transition: width 0.25s ease;
+/* ---------- AMBIENT BACKGROUND ---------- */
+
+.intro-loader::before {
+  content: '';
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(0,180,219,.35), transparent 65%);
+  filter: blur(60px);
+  animation: ambientMove 9s ease-in-out infinite;
 }
 
-.global-loader-percent {
-  margin-top: 14px;
-  font-weight: 700;
-  font-size: 1rem;
+@keyframes ambientMove {
+  0%   { transform: translate(-80px, -60px); }
+  50%  { transform: translate(80px, 40px); }
+  100% { transform: translate(-80px, -60px); }
 }
 
-.global-loader.hide {
-  animation: globalLoaderFadeOut .6s ease forwards;
+/* ---------- BRAND ---------- */
+
+.intro-brand {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 42px;
+  animation: brandEnter 1s cubic-bezier(.2,.9,.3,1) forwards;
 }
 
-@keyframes globalLoaderFadeOut {
+@keyframes brandEnter {
+  from {
+    opacity: 0;
+    transform: scale(.92) translateY(16px);
+    filter: blur(8px);
+  }
   to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-/* ==========================================
-   GLOBAL LOADER – INTRO ANİMASYON
-   ========================================== */
-
-@keyframes loaderIntroFade {
-  0% {
-    opacity: 0;
-    transform: scale(0.94);
-    filter: blur(6px);
-  }
-  100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
     filter: blur(0);
   }
 }
 
-@keyframes loaderPulse {
-  0%   { letter-spacing: 2px; }
-  50%  { letter-spacing: 6px; }
-  100% { letter-spacing: 2px; }
+.intro-logo {
+  width: clamp(160px, 42vw, 240px);
+  margin-bottom: 10px;
+  filter:
+    drop-shadow(0 10px 40px rgba(0,0,0,.65))
+    drop-shadow(0 0 20px rgba(0,180,219,.45));
+  animation: logoFloat 3.6s ease-in-out infinite;
 }
 
-@keyframes loaderExit {
+@keyframes logoFloat {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+.intro-sub {
+  font-size: clamp(.75rem, 2.6vw, .9rem);
+  letter-spacing: 4px;
+  opacity: .65;
+}
+
+/* ---------- PROGRESS ---------- */
+
+.intro-progress-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.intro-progress {
+  width: clamp(220px, 70vw, 300px);
+  height: 7px;
+  background: rgba(255,255,255,.14);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.intro-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    #00b4db,
+    #6bcf7f,
+    #ffd93d
+  );
+  box-shadow: 0 0 14px rgba(0,180,219,.8);
+  transition: width .35s cubic-bezier(.4,0,.2,1);
+}
+
+/* ---------- STATUS TEXT ---------- */
+
+.intro-text {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  font-size: clamp(.85rem, 2.8vw, .95rem);
+  opacity: .8;
+  animation: textPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+  0%   { opacity: .55; }
+  50%  { opacity: .95; }
+  100% { opacity: .55; }
+}
+
+/* ---------- EXIT ---------- */
+
+.intro-loader.hide {
+  animation: introExit .7s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+@keyframes introExit {
   to {
     opacity: 0;
-    transform: scale(1.04);
-    filter: blur(8px);
+    transform: scale(1.05);
+    filter: blur(10px);
   }
 }
 
-/* Loader box intro */
-.global-loader-box {
-  animation: loaderIntroFade 0.65s cubic-bezier(.2,.9,.3,1) forwards;
-}
+/* ---------- MOBILE SAFE ---------- */
 
-/* Başlık animasyonu */
-.global-loader-title {
-  animation: loaderPulse 2.4s ease-in-out infinite;
+@media (max-height: 600px) {
+  .intro-brand { margin-bottom: 28px; }
+  .intro-logo  { width: 150px; }
 }
-
-/* Progress bar daha akıcı */
-.global-loader-progress {
-  transition: width 0.35s cubic-bezier(.4,0,.2,1);
-}
-
-/* Çıkış animasyonu override */
-.global-loader.hide {
-  animation: loaderExit 0.55s ease forwards;
-}
-
 
 
     </style>
@@ -8852,18 +8886,28 @@ body.modal-open {
         </div>
     </div>
 	
-	<div id="globalLoader" class="global-loader">
-  <div class="global-loader-box">
-    <div class="global-loader-title">TABULAGO</div>
-    <div class="global-loader-sub">AVATARLAR YÜKLENİYOR</div>
+	
+	<!-- ===== İNTRO ===== -->
+<div id="globalLoader" class="intro-loader">
 
-    <div class="global-loader-bar">
-      <div id="globalLoaderProgress" class="global-loader-progress"></div>
-    </div>
-
-    <div id="globalLoaderPercent" class="global-loader-percent">0%</div>
+  <div class="intro-brand">
+    <img src="logo.png" alt="Tabulago" class="intro-logo" />
+    <div class="intro-sub">TAKIMINI KUR, ANLAT KAZAN</div>
   </div>
+
+  <div class="intro-progress-wrap">
+    <div class="intro-progress">
+      <div id="globalLoaderProgress" class="intro-bar"></div>
+    </div>
+  </div>
+
+  <div id="globalLoaderPercent" class="intro-text">
+    Hazırlanıyor…
+  </div>
+
 </div>
+
+
 
 	
     <script>
