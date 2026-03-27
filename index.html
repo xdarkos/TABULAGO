@@ -23,7 +23,7 @@
   <meta property="og:description" content="Arkadaşlarınızla birlikte oynayabileceğiniz eğlenceli takım kelime oyunu" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="tr_TR" />
-  <script src="words.js"></script>
+  <script src="js/words.js"></script>
   <!-- Domainin varsa aç -->
   <!-- <meta property="og:url" content="https://siteadresin.com/" /> -->
   <!-- <meta property="og:image" content="og-image.png" /> -->
@@ -37,12 +37,12 @@
   <meta name="msapplication-tap-highlight" content="no" />
 
   <!-- PWA Manifest (dosya adın: site.webmanifest) -->
-  <link rel="manifest" href="site.webmanifest" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
 
   <!-- Favicon & App Icons (GitHub Pages uyumlu: relative path) -->
-  <link rel="icon" href="favicon.ico" />
-  <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" href="favicon/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png" />
+  <link rel="favicon/apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
 
   <!-- Fontlar -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -8202,7 +8202,7 @@ body.modal-open {
         <!-- BAŞLIK YERİNE GÖRSEL -->
         <div class="resume-title-img">
             <img
-                src="kaldigin-yerden-devam.png"
+                src="yazili-gorseller/kaldigin-yerden-devam.png"
                 alt="Kaldığın Yerden Devam Et"
             />
         </div>
@@ -8213,12 +8213,12 @@ body.modal-open {
 
             <!-- DEVAM ET (GÖRSEL) -->
             <button class="btn image-btn" id="resumeGameBtn">
-                <img src="devamet.png" alt="Devam Et">
+                <img src="button/devamet.png" alt="Devam Et">
             </button>
 
             <!-- YENİ OYUN (GÖRSEL) -->
             <button class="btn image-btn" id="newGameBtn">
-                <img src="oyuncik.png" alt="Yeni Oyun">
+                <img src="button/oyuncik.png" alt="Yeni Oyun">
             </button>
 
         </div>
@@ -8232,7 +8232,7 @@ body.modal-open {
         <div class="screen active-screen" id="teamSetupScreen">
             <!-- Başlık - Görsel -->
             <div class="team-setup-title" aria-label="Takımlarını Oluştur">
-                <img src="takimlarolus.png" alt="Takımlarını Oluştur" class="team-setup-title-img" draggable="false">
+                <img src="yazili-gorseller/takimlarolus.png" alt="Takımlarını Oluştur" class="team-setup-title-img" draggable="false">
             </div>
             
             <!-- Takım Container -->
@@ -8247,7 +8247,7 @@ body.modal-open {
             <div class="rounds-selector">
                 <div class="rounds-row" role="group" aria-label="Toplam tur sayısı seçimi">
                     <div class="rounds-label" aria-hidden="true">
-                        <img src="toplamtursayi.png" alt="Toplam Tur Sayısı" class="rounds-label-img" draggable="false">
+                        <img src="yazili-gorseller/toplamtursayi.png" alt="Toplam Tur Sayısı" class="rounds-label-img" draggable="false">
                     </div>
                     <div class="rounds-picker" aria-label="Tur seçimi">
                         <button type="button" class="rounds-pill" data-round="1" aria-pressed="false">1</button>
@@ -8261,10 +8261,10 @@ body.modal-open {
             <!-- Kurallar + Başla Butonları -->
             <div class="start-actions">
                 <button class="rules-btn" id="rulesBtn">
-                    <img src="kurallar.png" alt="Oyun Kuralları" class="rules-img" draggable="false">
+                    <img src="button/kurallar.png" alt="Oyun Kuralları" class="rules-img" draggable="false">
                 </button>
                 <button class="btn" id="startGameBtn">
-                    <img src="basla.png" alt="Oyuna Başla" class="start-img" draggable="false">
+                    <img src="button/basla.png" alt="Oyuna Başla" class="start-img" draggable="false">
                 </button>
             </div>
         </div>
@@ -8273,7 +8273,7 @@ body.modal-open {
         <div class="screen" id="avatarSelectionScreen">
             <!-- Başlık Görseli -->
             <div class="avatar-selection-title">
-                <img class="avatar-title-img" src="avatarsec.png" alt="Avatar Seçimi" draggable="false">
+                <img class="avatar-title-img" src="yazili-gorseller/avatarsec.png" alt="Avatar Seçimi" draggable="false">
             </div>
             
             <!-- Sıra Bilgisi -->
@@ -8302,7 +8302,7 @@ body.modal-open {
         <div class="screen" id="flagSelectionScreen">
             <!-- Başlık - Görsel -->
             <div class="flag-selection-title">
-                <img src="flamasec.png" alt="Flama Seçimi" class="flag-selection-title-img" draggable="false">
+                <img src="yazili-gorseller/flamasec.png" alt="Flama Seçimi" class="flag-selection-title-img" draggable="false">
             </div>
             
             <!-- Takım Bilgisi -->
@@ -8330,7 +8330,7 @@ body.modal-open {
             <div class="ready-for-dice-screen">
                 <!-- Başlık - Görsel -->
                 <div class="ready-title">
-                    <img src="herkeshazir.png" alt="Herkes Hazır" class="ready-title-img" draggable="false">
+                    <img src="yazili-gorseller/herkeshazir.png" alt="Herkes Hazır" class="ready-title-img" draggable="false">
                 </div>
                 
                 <!-- Bilgi Metni -->
@@ -8346,7 +8346,7 @@ body.modal-open {
                 
                 <!-- Zar Atmaya Hazır Buton -->
                 <button class="btn dice-ready-btn" id="goToDiceBtn" aria-label="Zar atmaya hazırız">
-                    <img src="zarhazir.png" alt="Zar Atmaya Hazırız" class="dice-ready-img">
+                    <img src="button/zarhazir.png" alt="Zar Atmaya Hazırız" class="dice-ready-img">
                 </button>
             </div>
         </div>
@@ -8356,7 +8356,7 @@ body.modal-open {
             <div class="dice-screen">
                 <!-- Başlık - Görsel -->
                 <div class="dice-title">
-                    <img src="sirabelirleme.png" alt="Sıra Belirleme" class="dice-title-img" draggable="false">
+                    <img src="yazili-gorseller/sirabelirleme.png" alt="Sıra Belirleme" class="dice-title-img" draggable="false">
                 </div>
                 
                 <!-- Alt Başlık -->
@@ -8382,7 +8382,7 @@ body.modal-open {
                 
                 <!-- Başla Butonu -->
                 <button class="btn start-after-dice-btn" id="startAfterDiceBtn" hidden aria-label="Hadi Başlayalım">
-                    <img src="hadibasla.png" alt="Hadi Başlayalım" class="start-after-dice-img">
+                    <img src="button/hadi-basla.png" alt="Hadi Başlayalım" class="start-after-dice-img">
                 </button>
             </div>
         </div>
@@ -8392,7 +8392,7 @@ body.modal-open {
             <div class="team-turn-screen">
                 <!-- Başlık - Görsel -->
                 <h2 class="turn-title">
-                    <img src="anlatmayahazirtakim.png" alt="Anlatmaya Hazır Takım" class="turn-title-img" draggable="false">
+                    <img src="yazili-gorseller/anlatmayahazirtakim.png" alt="Anlatmaya Hazır Takım" class="turn-title-img" draggable="false">
                 </h2>
                 
                 <!-- Takım Bilgisi -->
@@ -8412,7 +8412,7 @@ body.modal-open {
                 
                 <!-- Hazır Butonu -->
                 <button class="btn btn-primary" id="readyBtn" aria-label="Hazırım">
-                    <img src="hazir.png" alt="Hazırım" class="ready-btn-img">
+                    <img src="button/hazir.png" alt="Hazırım" class="ready-btn-img">
                 </button>
             </div>
         </div>
@@ -8506,7 +8506,7 @@ body.modal-open {
             <div class="pause-screen">
                 <!-- Mola Görseli -->
                 <div class="pause-title">
-                    <img src="mola.png" alt="Mola" class="mola-image">
+                    <img src="yazili-gorseller/mola.png" alt="Mola" class="mola-image">
                 </div>
                 
                 <!-- Bilgi Metni -->
@@ -8550,12 +8550,12 @@ body.modal-open {
                 <div class="pause-options">
                     <!-- Devam Et Butonu -->
                     <button class="btn pause-btn image-btn" id="resumeBtn" aria-label="Devam Et">
-                        <img src="devamet.png" alt="Devam Et" class="pause-btn-img">
+                        <img src="button/devamet.png" alt="Devam Et" class="pause-btn-img">
                     </button>
                     
                     <!-- Oyundan Çık Butonu -->
                     <button class="btn pause-btn image-btn" id="quitBtn" aria-label="Oyundan Çık">
-                        <img src="oyuncik.png" alt="Oyundan Çık" class="pause-btn-img">
+                        <img src="button/oyuncik.png" alt="Oyundan Çık" class="pause-btn-img">
                     </button>
                 </div>
             </div>
@@ -8567,7 +8567,7 @@ body.modal-open {
 
         <!-- BAŞLIK GÖRSEL -->
         <div class="tie-title-img">
-            <img src="esitlik-var.png" alt="Eşitlik Var">
+            <img src="yazili-gorseller/esitlik-var.png" alt="Eşitlik Var">
         </div>
 
         <div class="tie-info-box">
@@ -8580,7 +8580,7 @@ body.modal-open {
 
 
 <button class="btn image-btn" id="continueTieBtn">
-    <img src="devamet.png" alt="Oyuna Devam Et">
+    <img src="button/devamet.png" alt="Oyuna Devam Et">
 </button>
 
     </div>
@@ -8593,7 +8593,7 @@ body.modal-open {
 
         <!-- OYUN BİTTİ BAŞLIK GÖRSELİ -->
         <div class="winner-title-img">
-            <img src="oyun-bitti.png" alt="Oyun Bitti">
+            <img src="yazili-gorseller/oyun-bitti.png" alt="Oyun Bitti">
         </div>
 
         <!-- KAZANAN TAKIM -->
@@ -8612,12 +8612,12 @@ body.modal-open {
 
             <!-- YENİ OYUN -->
             <button class="btn image-btn" id="playAgainBtn">
-                <img src="yeni-oyun.png" alt="Yeni Oyun">
+                <img src="button/yeni-oyun.png" alt="Yeni Oyun">
             </button>
 
             <!-- ANA MENÜ / OYUNCU SONUÇ -->
             <button class="btn image-btn image-btn-result" id="mainMenuBtn">
-                <img src="oyuncu-sonuc.png" alt="Ana Menü">
+                <img src="button/oyuncu-sonuc.png" alt="Ana Menü">
             </button>
 
         </div>
@@ -8631,7 +8631,7 @@ body.modal-open {
 
     <!-- OYUNCU PERFORMANS BAŞLIK GÖRSELİ -->
 <div class="player-result-title-img">
-  <img src="oyuncu-performans.png" alt="Oyuncu Performansları">
+  <img src="yazili-gorseller/oyuncu-performans.png" alt="Oyuncu Performansları">
 </div>
 
 
@@ -8639,7 +8639,7 @@ body.modal-open {
 
     <div class="player-result-actions">
       <button class="btn image-btn" id="playerResultBackBtn">
-  <img src="geriye.png" alt="Geri Dön">
+  <img src="button/geriye.png" alt="Geri Dön">
 </button>
 
     </div>
@@ -8658,9 +8658,9 @@ body.modal-open {
         <div class="rules-modal-content">
             <!-- Modal Header -->
             <div class="rules-modal-header">
-                <img src="kural.png" alt="TabulaGo Oyun Kuralları" class="rules-modal-title-image" draggable="false">
+                <img src="yazili-gorseller/kural.png" alt="TabulaGo Oyun Kuralları" class="rules-modal-title-image" draggable="false">
                 <button class="rules-modal-close" id="rulesModalClose" aria-label="Kuralları Kapat">
-                    <img src="bilgi.png" alt="Bilgi" class="rules-close-icon">
+                    <img src="yazili-gorseller/bilgi.png" alt="Bilgi" class="rules-close-icon">
                 </button>
             </div>
             
@@ -8773,7 +8773,7 @@ body.modal-open {
             <!-- Modal Footer -->
             <div class="rules-modal-footer">
                 <button class="rules-understood-btn" id="rulesUnderstoodBtn">
-                    <img src="anla.png" alt="Okudum Anladım" class="rules-understood-image">
+                    <img src="button/anla.png" alt="Okudum Anladım" class="rules-understood-image">
                 </button>
             </div>
         </div>
@@ -8791,12 +8791,12 @@ body.modal-open {
                    href="https://www.instagram.com/ileri.official?igsh=MXo0bmczdHVtbjFm&utm_source=qr"
                    target="_blank"
                    rel="noopener noreferrer">
-                    <img src="insta.png" alt="Instagram" class="ig-icon" draggable="false">
+                    <img src="fix-button/insta.png" alt="Instagram" class="ig-icon" draggable="false">
                     Eren İlhan
                 </a>
                 
                 <a href="fix.html" class="footer-fix">
-                    <img src="fix.png" alt="Sorun Bildir">
+                    <img src="fix-button/fix.png" alt="Sorun Bildir">
                 </a>
             </div>
             
@@ -9630,16 +9630,16 @@ const TeamManager = {
 
 const AvatarManager = {
   avatarList: [
-    'avatar1.png','avatar2.png','avatar3.png','avatar4.png','avatar5.png',
-    'avatar6.png','avatar7.png','avatar8.png','avatar9.png','avatar10.png',
-    'avatar11.png','avatar12.png','avatar13.png','avatar14.png','avatar15.png',
-    'avatar16.png','avatar17.png','avatar18.png','avatar19.png','avatar20.png',
-    'avatar21.png','avatar22.png','avatar23.png','avatar24.png','avatar25.png',
-    'avatar26.png','avatar27.png','avatar28.png','avatar29.png','avatar30.png',
-    'avatar31.png','avatar32.png','avatar33.png','avatar34.png','avatar35.png',
-    'avatar36.png','avatar37.png','avatar38.png','avatar39.png','avatar40.png',
-    'avatar41.png','avatar42.png','avatar43.png','avatar44.png','avatar45.png',
-    'avatar46.png','avatar47.png','avatar48.png','avatar49.png',
+    'avatar/avatar1.png','avatar/avatar2.png','avatar/avatar3.png','avatar/avatar4.png','avatar/avatar5.png',
+    'avatar/avatar6.png','avatar/avatar7.png','avatar/avatar8.png','avatar/avatar9.png','avatar/avatar10.png',
+    'avatar/avatar11.png','avatar/avatar12.png','avatar/avatar13.png','avatar/avatar14.png','avatar/avatar15.png',
+    'avatar/avatar16.png','avatar/avatar17.png','avatar/avatar18.png','avatar/avatar19.png','avatar/avatar20.png',
+    'avatar/avatar21.png','avatar/avatar22.png','avatar/avatar23.png','avatar/avatar24.png','avatar/avatar25.png',
+    'avatar/avatar26.png','avatar/avatar27.png','avatar/avatar28.png','avatar/avatar29.png','avatar/avatar30.png',
+    'avatar/avatar31.png','avatar/avatar32.png','avatar/avatar33.png','avatar/avatar34.png','avatar/avatar35.png',
+    'avatar/avatar36.png','avatar/avatar37.png','avatar/avatar38.png','avatar/avatar39.png','avatar/avatar40.png',
+    'avatar/avatar41.png','avatar/avatar42.png','avatar/avatar43.png','avatar/avatar44.png','avatar/avatar45.png',
+    'avatar/avatar46.png','avatar/avatar47.png','avatar/avatar48.png','avatar/avatar49.png',
   ],
 
   selectionState: { currentTeamIndex: 0, currentPlayerIndex: 0 },
@@ -9801,12 +9801,11 @@ const AvatarManager = {
 
 const FlagManager = {
   flagList: [
-    { name: 'Kırmızı Flama', image: 'flamakirmizi.png', color: '#ff6b6b' },
-    { name: 'Mavi Flama', image: 'flamamavi.png', color: '#00b4db' },
-    { name: 'Sarı Flama', image: 'flamasari.png', color: '#ffd93d' },
-    { name: 'Yeşil Flama', image: 'flamayesil.png', color: '#6bcf7f' }
+    { name: 'Kırmızı Flama', image: 'flama/flamakirmizi.png', color: '#ff6b6b' },
+    { name: 'Mavi Flama', image: 'flama/flamamavi.png', color: '#00b4db' },
+    { name: 'Sarı Flama', image: 'flama/flamasari.png', color: '#ffd93d' },
+    { name: 'Yeşil Flama', image: 'flama/flamayesil.png', color: '#6bcf7f' }
   ],
-
   selectionState: { currentTeamIndex: 0 },
 
   showFlagSelectionScreen(keepIndex = false) {
@@ -9935,7 +9934,7 @@ const FlagManager = {
 //  ASSET VERSION
 // ==========================================
 
-const ASSET_VERSION = 'v1.0.3';
+const ASSET_VERSION = 'v1.0.5';
 CONFIG.ASSET_VERSION = ASSET_VERSION;
 
 
@@ -9947,14 +9946,14 @@ const asset = (path) =>
 
 
 const GLOBAL_ASSETS = {
-  avatars: AvatarManager.avatarList.map(asset),
+  avatars: AvatarManager.avatarList.map(asset), // Bu satır asset() ile yolu otomatik düzenler
   flags: FlagManager.flagList.map(f => asset(f.image)),
   ui: [
-    asset('zarat.png'),
-    asset('zartekrar.png')
+    asset('button/zarat.png'),
+    asset('button/zartekrar.png')
   ],
   data: [
-    asset('words.js') // ✅ KELİME DOSYASI PRELOAD
+    asset('js/words.js') // ✅ KELİME DOSYASI PRELOAD
   ]
 };
 
@@ -10077,7 +10076,7 @@ const DiceManager = {
     if (DOM.rollDiceBtn) {
       DOM.rollDiceBtn.style.display = 'block';
       DOM.rollDiceBtn.disabled = false;
-      DOM.rollDiceBtn.innerHTML = `<img src="${asset('zarat.png')}" alt="Zar At" class="dice-btn-img">`;
+      DOM.rollDiceBtn.innerHTML = `<img src="${asset('button/zarat.png')}" alt="Zar At" class="dice-btn-img">`;
     }
 
     ScreenManager.showScreen('dice');
@@ -10282,7 +10281,7 @@ if (DOM.rollDiceBtn) {
   DOM.rollDiceBtn.disabled = false;
   DOM.rollDiceBtn.innerHTML = `
 <img 
-  src="${asset('zartekrar.png')}" 
+  src="${asset('button/zartekrar.png')}" 
   alt="Eşit Takımlar Tekrar Zar Atsın" 
   class="dice-btn-img"
 >

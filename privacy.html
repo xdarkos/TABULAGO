@@ -2,28 +2,58 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>TabulaGo - KVKK / Aydınlatma Metni</title>
 
-  <!-- PWA / Meta -->
+  <!-- Viewport (mobil güvenli) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+   <title>TabulaGo - KVKK / Aydınlatma Metni</title>
+
+  <!-- SEO -->
+  <meta name="description" content="TabulaGo - Eğlenceli takım kelime oyunu. Arkadaşlarınızla birlikte oynayın ve kelime anlatma becerilerinizi test edin!" />
+  <meta name="keywords" content="tabula go, kelime oyunu, takım oyunu, eğlenceli oyun, arkadaş oyunu, online oyun" />
+  <meta name="author" content="TabulaGo" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Canonical (GitHub Pages repo altında genelde dinamik olur; domainin varsa tam URL yaz) -->
+  <!-- Örn: <link rel="canonical" href="https://siteadresin.com/" /> -->
+  <link rel="canonical" href="./" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="TabulaGo - Takım Kelime Oyunu" />
+  <meta property="og:description" content="Arkadaşlarınızla birlikte oynayabileceğiniz eğlenceli takım kelime oyunu" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="tr_TR" />
+  <script src="js/words.js"></script>
+  <!-- Domainin varsa aç -->
+  <!-- <meta property="og:url" content="https://siteadresin.com/" /> -->
+  <!-- <meta property="og:image" content="og-image.png" /> -->
+
+  <!-- Mobil / PWA -->
+  <meta name="theme-color" content="#6a11cb" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="TabulaGo" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="theme-color" content="#6a11cb" />
   <meta name="msapplication-TileColor" content="#6a11cb" />
   <meta name="msapplication-tap-highlight" content="no" />
 
-  <!-- Performans -->
+  <!-- PWA Manifest (dosya adın: site.webmanifest) -->
+  <link rel="manifest" href="favicon/site.webmanifest" />
+
+  <!-- Favicon & App Icons (GitHub Pages uyumlu: relative path) -->
+  <link rel="icon" href="favicon/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png" />
+  <link rel="favicon/apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+
+  <!-- Fontlar -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <!-- Fontlar / ikonlar -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- İkonlar -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
+  
 /* ===== CSS DEĞİŞKENLERİ (ANA SAYFA İLE AYNI) ===== */
 :root{
   --primary:#6a11cb;
@@ -1081,7 +1111,7 @@ body.modal-open{
    target="_blank"
    rel="noopener noreferrer">
 
-  <img src="insta.png"
+  <img src="fix-button/insta.png"
        alt="Instagram"
        class="ig-icon"
        draggable="false">
@@ -1091,7 +1121,7 @@ body.modal-open{
 
 
   <a href="fix.html" class="footer-fix">
-    <img src="fix.png" alt="Sorun Bildir">
+    <img src="fix-button/fix.png" alt="Sorun Bildir">
   </a>
 </div>
 
